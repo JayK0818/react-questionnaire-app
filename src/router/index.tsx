@@ -1,16 +1,20 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from '../App'
-import BaseLayout from '../components/BaseLayout'
-import ManageLayout from '../components/ManageLayout'
-import QuestionnaireList from "../views/QuestionnaireList"
-import QuestionnaireStarList from '../views/Star'
-import QuestionnaireTrashList from '../views/Trash'
+import BaseLayout from '@/components/BaseLayout'
+import ManageLayout from '@/components/ManageLayout'
+import QuestionnaireList from "@/views/QuestionnaireList"
+import QuestionnaireStarList from '@/views/Star'
+import QuestionnaireTrashList from '@/views/Trash'
+import Home from '@/views/Home'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <BaseLayout />,
     children: [
+      {
+        index: true,
+        element: <Home/>
+      },
       {
         path: 'manage',
         element: <ManageLayout />,
