@@ -38,7 +38,7 @@ const ManageLayout: React.FC = () => {
             >回收站</Button>
         </Space>
       </Sider>
-      <Content>
+      <Content className={styles.container}>
         <Outlet/>
       </Content>
     </Layout>

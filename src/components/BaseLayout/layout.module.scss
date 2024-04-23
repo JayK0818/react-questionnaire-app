@@ -1,10 +1,26 @@
-.header {
-  padding: 24px 0;
-}
 .content {
   height: calc(100vh - 64px - 71px);
 }
 .footer {
   border-top: 1px solid #e8e8e8;
   text-align: center;
+}
+.header {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  .title_wrapper {
+    flex: 1;
+    min-width: 600px;
+    .title {
+      margin-bottom: 0;
+      color: #fff;
+      cursor: pointer;
+    }
+    .icon {
+      margin-right: 6px;
+    }
+  }
+  .user_wrapper {
+  }
 }

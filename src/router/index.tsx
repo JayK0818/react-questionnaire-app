@@ -5,6 +5,9 @@ import QuestionnaireList from "@/views/QuestionnaireList"
 import QuestionnaireStarList from '@/views/Star'
 import QuestionnaireTrashList from '@/views/Trash'
 import Home from '@/views/Home'
+import NotFound from '@/views/NotFound'
+import Login from '@/views/Login'
+import Register from '@/views/Register'
 
 const router = createBrowserRouter([
   {
@@ -13,12 +16,16 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home/>
+        element: <Home />
       },
       {
         path: 'manage',
         element: <ManageLayout />,
         children: [
+          {
+            index: true,
+            element: <QuestionnaireList/>
+          },
           {
             path: 'list',
             element: <QuestionnaireList/>
@@ -32,6 +39,18 @@ const router = createBrowserRouter([
             element: <QuestionnaireTrashList/>
           }
         ]
+      },
+      {
+        path: '/login',
+        element: <Login/>
+      },
+      {
+        path: '/register',
+        element: <Register/>
+      },
+      {
+        path: '/*',
+        element: <NotFound/>
       }
     ]
   }
