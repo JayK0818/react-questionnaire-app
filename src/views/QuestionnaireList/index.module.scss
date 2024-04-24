@@ -1,0 +1,12 @@
+.container {
+  .header {
+    display: flex;
+    white-space: nowrap;
+    align-items: center;
+    min-width: 800px;
+    justify-content: space-between;
+    .title {
+      margin-bottom: 0;
+    }
+  }
+}

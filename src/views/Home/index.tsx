@@ -9,9 +9,9 @@ const Home: React.FC = () => {
   const navigate = useNavigate()
   return (
     <div className={styles.container}>
-      <Title>React问卷调查</Title>
+      <Title>React问卷调查 | 在线投票</Title>
       <Paragraph>已创建问卷190份, 已发布问卷240份, 收到问卷100份</Paragraph>
-      <div>
+      <div style={{ paddingTop: 10 }}>
         <Button
           type='primary'
           size={'large'}
