@@ -6,10 +6,10 @@ import SearchInput from '@/components/SearchInput'
 const QuestionnaireList: React.FC = () => {
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
+      <div className={'questionnaire-header'}>
         <Typography.Title
           level={5}
-          className={styles.title}
+          className={'title'}
         >我的问卷</Typography.Title>
         <SearchInput/>
       </div>

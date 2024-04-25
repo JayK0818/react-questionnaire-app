@@ -1,5 +1,5 @@
 .content {
-  height: calc(100vh - 64px - 71px);
+  height: calc(100vh - $header-height - $footer-height);
 }
 .footer {
   border-top: 1px solid #e8e8e8;
@@ -20,7 +20,5 @@
     .icon {
       margin-right: 6px;
     }
-  }
-  .user_wrapper {
   }
 }

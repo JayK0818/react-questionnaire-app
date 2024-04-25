@@ -46,6 +46,7 @@
     ]
   },
   "devDependencies": {
-    "sass": "^1.75.0"
+    "sass": "^1.75.0",
+    "sass-resources-loader": "^2.2.5"
   }
 }

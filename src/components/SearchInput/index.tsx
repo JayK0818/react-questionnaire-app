@@ -10,11 +10,16 @@ const SearchInput = memo(function () {
   const { pathname } = useLocation()
   const [text, setText] = useState<string>('')
   const [searchParams] = useSearchParams()
+  /**
+   * @description 处理搜索的字符串
+  */
   const handleTextChanged = (event: ChangeEvent<HTMLInputElement>): void => {
     setText(event.target.value)
   }
   const handleSearch = (): void => {
-    navigate(`${pathname}?${SEARCH_KEYWORD}=${text}`)
+    if (text.trim()) {
+      navigate(`${pathname}?${SEARCH_KEYWORD}=${text.trim()}`)
+    }
   }
   useEffect(() => {
     const value = searchParams.get(SEARCH_KEYWORD) ?? ''
