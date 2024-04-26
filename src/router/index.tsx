@@ -8,6 +8,7 @@ import Home from '@/views/Home'
 import NotFound from '@/views/NotFound'
 import Login from '@/views/Login'
 import Register from '@/views/Register'
+import { Path } from '@/interface/enum'
 
 const router = createBrowserRouter([
   {
@@ -41,11 +42,11 @@ const router = createBrowserRouter([
         ]
       },
       {
-        path: '/login',
+        path: Path.login,
         element: <Login/>
       },
       {
-        path: '/register',
+        path: Path.register,
         element: <Register/>
       },
       {
