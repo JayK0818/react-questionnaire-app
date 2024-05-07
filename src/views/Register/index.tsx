@@ -8,9 +8,10 @@ import { Path } from '@/interface/enum'
 
 const Register: React.FC = () => {
   const navigate = useNavigate()
-  const [userInfo, setUserInfo] = useState<{ username: string, password: string }>({
+  const [userInfo, setUserInfo] = useState<{ username: string, password: string, confirmPassword: string }>({
     username: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   })
   /**
    * @description 设置用户名与密码
@@ -32,13 +33,16 @@ const Register: React.FC = () => {
           className={styles.title}
         >新用户注册</Typography.Title>
         <Form
-          layout={'vertical'}
           className={styles.form}
+          labelCol={{span: 6}}
         >
           <Form.Item
             label='用户名'
             name='username'
-            rules={[ {required: true, message: 'Username is required'} ]}
+            rules={[
+              { required: true, message: 'Username is required' },
+              { pattern: /^\w+$/, message: '用户名不合法' }
+            ]}
           >
             <Input
               placeholder={'请输入用户名'}
@@ -59,7 +63,18 @@ const Register: React.FC = () => {
               prefix={<LockOutlined/>}
             />
           </Form.Item>
-          <Form.Item>
+          <Form.Item
+            label='确认密码'
+            name='confirmPassword'
+            rules={[{ required: true, message: '请再次确认密码'}]}
+          >
+            <Input.Password
+              placeholder={'请再次输入密码'}
+              value={userInfo.password}
+              prefix={<LockOutlined/>}
+            />
+          </Form.Item>
+          <Form.Item wrapperCol={{offset: 6}}>
             <Button
               type='primary'
               htmlType='submit'

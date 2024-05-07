@@ -44,8 +44,9 @@ const Login: React.FC = () => {
     const localUserInfo = getUserInfo()
     if (localUserInfo) {
       form.setFieldsValue(localUserInfo)
+      setIsRemember(true)
     }
-  }, [])
+  }, [form])
   const navigate = useNavigate()
   const handleRegister = (): void => {
     navigate(Path.register)
@@ -66,7 +67,10 @@ const Login: React.FC = () => {
           <Form.Item
             label='用户名'
             name='username'
-            rules={[{ required: true, message: '用户名不得为空' }]}
+            rules={[
+              { required: true, message: '用户名不得为空' },
+              { pattern: /^\w+$/, message: '用户名不合法' }
+            ]}
           >
             <Input
               placeholder='用户名'
