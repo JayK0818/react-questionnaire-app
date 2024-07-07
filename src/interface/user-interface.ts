@@ -1,9 +1,9 @@
 /**
  * @description 用户信息
 */
-interface UserInfoProps {
+interface RememberUserInfoProps {
   username: string
   password: string
 }
 
-export type { UserInfoProps };
+export type { RememberUserInfoProps };

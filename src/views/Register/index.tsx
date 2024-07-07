@@ -4,11 +4,12 @@ import styles from './register.module.scss'
 import { useNavigate } from 'react-router-dom'
 import { UserAddOutlined, LockOutlined } from '@ant-design/icons'
 import type { ChangeEvent } from 'react'
-import { Path } from '@/interface/enum'
+import { PathEnum } from '@/interface/enum'
+import type { RememberUserInfoProps } from '@/interface/user-interface'
 
 const Register: React.FC = () => {
   const navigate = useNavigate()
-  const [userInfo, setUserInfo] = useState<{ username: string, password: string, confirmPassword: string }>({
+  const [userInfo, setUserInfo] = useState<RememberUserInfoProps & { confirmPassword: string }>({
     username: '',
     password: '',
     confirmPassword: ''
@@ -23,7 +24,7 @@ const Register: React.FC = () => {
     })
   }
   const handleLogin = (): void => {
-    navigate(Path.login)
+    navigate(PathEnum.login)
   }
   return (
     <div className={styles.container}>

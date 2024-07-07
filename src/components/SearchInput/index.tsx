@@ -3,7 +3,7 @@ import { Input } from 'antd'
 import type { ChangeEvent } from 'react'
 import styles from './search-input.module.scss'
 import { useNavigate, useLocation, useSearchParams } from 'react-router-dom'
-import { SEARCH_KEYWORD } from '@/constants'
+import { FieldEnum } from '@/interface/enum'
 
 const SearchInput = memo(function () {
   const navigate = useNavigate()
@@ -18,11 +18,11 @@ const SearchInput = memo(function () {
   }
   const handleSearch = (): void => {
     if (text.trim()) {
-      navigate(`${pathname}?${SEARCH_KEYWORD}=${text.trim()}`)
+      navigate(`${pathname}?${FieldEnum.keywords}=${text.trim()}`)
     }
   }
   useEffect(() => {
-    const value = searchParams.get(SEARCH_KEYWORD) ?? ''
+    const value = searchParams.get(FieldEnum.keywords) ?? ''
     setText(value)
   }, [searchParams])
   return (

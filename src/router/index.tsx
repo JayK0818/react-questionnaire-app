@@ -4,11 +4,12 @@ import ManageLayout from '@/components/ManageLayout'
 import QuestionnaireList from "@/views/QuestionnaireList"
 import QuestionnaireStarList from '@/views/Star'
 import QuestionnaireTrashList from '@/views/Trash'
+import QuestionnaireEdit from '@/views/QuestionnaireEdit'
 import Home from '@/views/Home'
 import NotFound from '@/views/NotFound'
 import Login from '@/views/Login'
 import Register from '@/views/Register'
-import { Path } from '@/interface/enum'
+import { PathEnum } from '@/interface/enum'
 
 const router = createBrowserRouter([
   {
@@ -42,11 +43,11 @@ const router = createBrowserRouter([
         ]
       },
       {
-        path: Path.login,
+        path: PathEnum.login,
         element: <Login/>
       },
       {
-        path: Path.register,
+        path: PathEnum.register,
         element: <Register/>
       },
       {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
         element: <NotFound/>
       }
     ]
+  },
+  {
+    path: '/edit',
+    element: <QuestionnaireEdit/>
   }
 ])
 

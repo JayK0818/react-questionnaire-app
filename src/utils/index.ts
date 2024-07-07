@@ -1,11 +1,17 @@
-import { USER_INFO_KEY } from '@/constants'
-import type { UserInfoProps } from '@/interface/user-interface'
+// import { USER_INFO_KEY } from '@/constants'
+import type { RememberUserInfoProps } from "@/interface/user-interface";
+import { LocalKeyEnum } from "@/interface/enum";
+
+const setItem = window.localStorage.setItem
+const removeItem = window.localStorage.removeItem;
+const getItem = window.localStorage.getItem;
+
 /**
  * @description 保存用户信息至本地
 */
-const saveUserInfo = (userInfo: UserInfoProps): void => {
+const saveUserInfo = (userInfo: RememberUserInfoProps): void => {
   try {
-    window.localStorage.setItem(USER_INFO_KEY, JSON.stringify(userInfo));
+    setItem(LocalKeyEnum.remember_user_key, JSON.stringify(userInfo));
   } catch (err) {}
 };
 /**
@@ -13,7 +19,7 @@ const saveUserInfo = (userInfo: UserInfoProps): void => {
 */
 const removeUserInfo = (): void => {
   try {
-    window.localStorage.removeItem(USER_INFO_KEY);
+    removeItem(LocalKeyEnum.remember_user_key);
   } catch (err) {
   }
 }
@@ -21,10 +27,10 @@ const removeUserInfo = (): void => {
 /**
  * @description 获取用户信息
 */
-const getUserInfo = (): null | UserInfoProps => {
+const getUserInfo = (): null | RememberUserInfoProps => {
   try {
-    const userinfo = window.localStorage.getItem(USER_INFO_KEY)
-    return userinfo ? JSON.parse(userinfo) : null
+    const userinfo = getItem(LocalKeyEnum.remember_user_key);
+    return userinfo ? JSON.parse(userinfo) : null;
   } catch (err) {
     return null;
   }

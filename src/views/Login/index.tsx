@@ -4,13 +4,13 @@ import { Button, Form, Input, Typography, Checkbox } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import type { ChangeEvent } from 'react'
-import { Path } from '@/interface/enum'
+import { PathEnum } from '@/interface/enum'
 import { saveUserInfo, removeUserInfo, getUserInfo } from '@/utils/index'
-import type { UserInfoProps } from '@/interface/user-interface'
+import type { RememberUserInfoProps } from '@/interface/user-interface'
 
 const Login: React.FC = () => {
   const [form] = Form.useForm()
-  const [userInfo, setUserInfo] = useState<UserInfoProps>({
+  const [userInfo, setUserInfo] = useState<RememberUserInfoProps>({
     username: '',
     password: ''
   })
@@ -49,7 +49,7 @@ const Login: React.FC = () => {
   }, [form])
   const navigate = useNavigate()
   const handleRegister = (): void => {
-    navigate(Path.register)
+    navigate(PathEnum.register)
   }
   return (
     <div className={styles.container}>
