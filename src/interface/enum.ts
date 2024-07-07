@@ -7,7 +7,8 @@ enum PathEnum {
  * @description 存储至本地的key
 */
 enum LocalKeyEnum {
-  remember_user_key = '__REMEMBER_USER_KEY__'
+  remember_user_key = '__REMEMBER_USER_KEY__',
+  userinfo_key = '__USERINFO_KEY__'
 }
 
 /**
@@ -17,7 +18,7 @@ enum FieldEnum {
   keywords = 'keywords'
 }
 /**
- * @description 组件类型
+ * @description 画布组件类型, 此类型需要和后台的数据保持一致
 */
 enum ComponentTypeEnum {
   title = 'title',

@@ -1,5 +1,7 @@
-// import { USER_INFO_KEY } from '@/constants'
-import type { RememberUserInfoProps } from "@/interface/user-interface";
+import type {
+  RememberUserInfoProps,
+  LoginUserInfoProps,
+} from "@/interface/user-interface";
 import { LocalKeyEnum } from "@/interface/enum";
 
 const setItem = window.localStorage.setItem
@@ -36,4 +38,46 @@ const getUserInfo = (): null | RememberUserInfoProps => {
   }
 };
 
-export { saveUserInfo, removeUserInfo, getUserInfo };
+/**
+ * @description 保存登录的用户信息
+*/
+const saveLoginUser = (user: LoginUserInfoProps): void => {
+  try {
+    setItem(LocalKeyEnum.userinfo_key, JSON.stringify(user));
+  } catch (err) {
+
+  }
+}
+/**
+ * @description 删除本地登录的用户信息
+*/
+const removeLoginUser = (): void => {
+  try {
+    removeItem(LocalKeyEnum.userinfo_key)
+  } catch (err) {
+
+  }
+}
+/**
+ * @description 获取登录的用户信息
+*/
+const getLogionUser = (): LoginUserInfoProps | null => {
+  try {
+    const user = getItem(LocalKeyEnum.userinfo_key)
+    if (!user) {
+      return null
+    }
+    return JSON.parse(user);
+  } catch (err) {
+    return null
+  }
+}
+
+export {
+  saveUserInfo,
+  removeUserInfo,
+  getUserInfo,
+  saveLoginUser,
+  removeLoginUser,
+  getLogionUser,
+};

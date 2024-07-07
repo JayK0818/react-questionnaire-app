@@ -6,4 +6,14 @@ interface RememberUserInfoProps {
   password: string
 }
 
-export type { RememberUserInfoProps };
+/**
+ * @description 登录的用户信息
+*/
+interface LoginUserInfoProps {
+  username: string
+  nickname: string
+  id: number
+  token: string
+}
+
+export type { RememberUserInfoProps, LoginUserInfoProps };
