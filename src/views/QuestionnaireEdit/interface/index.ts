@@ -1,3 +1,4 @@
+import type { ComponentTypeEnum } from "@/interface/enum";
 /**
  * @description 问卷标题属性
 */
@@ -15,4 +16,23 @@ interface QuestionnaireInputProps {
   placeholder?: string
 }
 
-export type { QuestionnaireTitleProps, QuestionnaireInputProps };
+type QuestionnaireComponentPropsType =
+  | QuestionnaireTitleProps
+  | QuestionnaireInputProps;
+
+
+  /**
+   * @description 组件列表
+  */
+interface ComponentListProps {
+  id: number
+  props: QuestionnaireComponentPropsType
+  type: ComponentTypeEnum
+}
+
+export type {
+  QuestionnaireTitleProps,
+  QuestionnaireInputProps,
+  ComponentListProps,
+  QuestionnaireComponentPropsType,
+};
