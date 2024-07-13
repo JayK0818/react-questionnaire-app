@@ -1,4 +1,4 @@
-.container {
+.page {
   display: flex;
   height: 100vh;
   background-color: #fff;
@@ -14,17 +14,26 @@
       left: 0;
       right: 0;
       margin: auto;
-      width: 400px;
+      width: 450px;
       max-height: 640px;
       overflow: auto;
-      top: 20px;
-      bottom: 20px;
+      top: 10px;
+      bottom: 10px;
       background-color: #fff;
       box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .1);
     }
   }
-  .layer-container, .attr-container {
-    width: 280px;
-    min-width: 280px;
+  .library-layer-container, .attr-setting-container {
+    width: 320px;
+    min-width: 320px;
   }
+  // 左侧 图层/组件 container
+  .library-card, .layer-card {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+// 禁止点击
+.no-click {
+  pointer-events: none;
 }

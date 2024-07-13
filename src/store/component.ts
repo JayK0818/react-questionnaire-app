@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { ComponentListProps } from '@/views/QuestionnaireEdit/interface'
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { useAppSelector } from './hooks'
 import type { RootState } from './index'
 
 const componentSlice = createSlice({
@@ -30,12 +29,12 @@ const componentSlice = createSlice({
 /**
  * @description 选择高亮id
 */
-const selectActiveComponent = useAppSelector((state: RootState) => state.component.activeComponentId)
+const selectActiveComponent = (state: RootState) => state.component.activeComponentId
 
 /**
  * @description 选择组件列表
 */
-const selectComponentList = useAppSelector((state: RootState) => state.component.list)
+const selectComponentList = (state: RootState) => state.component.list;
 
 export const { increment } = componentSlice.actions
 

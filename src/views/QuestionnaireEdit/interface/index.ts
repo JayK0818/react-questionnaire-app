@@ -1,4 +1,15 @@
 import type { ComponentTypeEnum } from "@/interface/enum";
+
+/**
+ * @description 组件库/图层类型
+*/
+enum QuestionnaireEditTabEnum {
+  library = 'library',
+  layer = 'layer',
+  attr = 'attr',
+  setting = 'setting'
+}
+
 /**
  * @description 问卷标题属性
 */
@@ -36,3 +47,5 @@ export type {
   ComponentListProps,
   QuestionnaireComponentPropsType,
 };
+
+export { QuestionnaireEditTabEnum };
