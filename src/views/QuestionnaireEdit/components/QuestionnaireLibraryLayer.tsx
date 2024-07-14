@@ -6,10 +6,19 @@ import styles from '../index.module.scss'
 import QuestionnaireTitle from './QuestionnaireTtile'
 import QuestionnaireInput from './QuestionnaireInput'
 
+const componentList: Array<React.FC> = [
+  QuestionnaireTitle,
+  QuestionnaireInput
+]
+
+// 组件列表
 const Library: React.FC = () => {
   return (<div className={styles['layer-card']}>
-    <QuestionnaireTitle />
-    <QuestionnaireInput/>
+    {
+      componentList.map((Component, i) => (
+        <Component key={ i } />
+      ))
+    }
   </div>)
 }
 

@@ -1,7 +1,8 @@
 import React from 'react'
 import { Typography } from 'antd'
-import type { QuestionnaireTitleProps } from '../interface/index'
 import styles from '../index.module.scss'
+import { QuestionnaireTitleProps } from '../interface/index'
+import classname from 'classnames'
 
 const defaultQuestionnaireTitleProps: QuestionnaireTitleProps = {
   title: '问卷标题',
@@ -11,16 +12,15 @@ const defaultQuestionnaireTitleProps: QuestionnaireTitleProps = {
 const { Title } = Typography
 
 const QuestionnaireTitle: React.FC<QuestionnaireTitleProps> = (props) => {
-  const { title, isCenter, level } = {...defaultQuestionnaireTitleProps, ...props}
   return (
-    <Title
-      level={level}
-      style={{
-        marginBottom: 0,
-        textAlign: isCenter ? 'center' : 'left'
-      }}
-      className={styles['no-click']}
-    >{ title }</Title>
+    <div
+      className={
+      classname([styles['no-click'], styles['component-container']])
+    }>
+      <Title
+        level={5}
+      >问卷标题</Title>
+    </div>
   )
 }
 
