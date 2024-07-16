@@ -5,10 +5,15 @@ import { UnorderedListOutlined, AppstoreOutlined } from '@ant-design/icons'
 import styles from '../index.module.scss'
 import QuestionnaireTitle from './QuestionnaireTtile'
 import QuestionnaireInput from './QuestionnaireInput'
+import QuestionnaireTextArea from './QuestionnaireTextarea'
 
+/**
+ * @description 组件列表
+*/
 const componentList: Array<React.FC> = [
   QuestionnaireTitle,
-  QuestionnaireInput
+  QuestionnaireInput,
+  QuestionnaireTextArea
 ]
 
 // 组件列表
@@ -16,7 +21,9 @@ const Library: React.FC = () => {
   return (<div className={styles['layer-card']}>
     {
       componentList.map((Component, i) => (
-        <Component key={ i } />
+        <div key={i} className={styles['component-container']}>
+          <Component/>
+        </div>
       ))
     }
   </div>)

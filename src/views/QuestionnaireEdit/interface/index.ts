@@ -18,7 +18,6 @@ interface QuestionnaireTitleProps {
   level?: 1 | 2 | 3 | 4 | 5;
   isCenter?: boolean;
 }
-
 /**
  * @description 问卷标题属性
 */
@@ -26,25 +25,36 @@ interface QuestionnaireInputProps {
   title?: string
   placeholder?: string
 }
+/**
+ * @description 多行输入标题
+*/
+interface QuestionnaireTextareaProps {
+  title?: string
+  placeholder?: string
+}
 
 type QuestionnaireComponentPropsType =
   | QuestionnaireTitleProps
-  | QuestionnaireInputProps;
+  | QuestionnaireInputProps
+  | QuestionnaireTextareaProps;
 
 
   /**
    * @description 组件列表
   */
 interface ComponentListProps {
-  id: number
-  props: QuestionnaireComponentPropsType
-  type: ComponentTypeEnum
+  id: number;
+  props: QuestionnaireComponentPropsType;
+  type: ComponentTypeEnum;
+  isVisible: boolean;
+  isLocked: boolean;
 }
 
 export type {
   QuestionnaireTitleProps,
   QuestionnaireInputProps,
   ComponentListProps,
+  QuestionnaireTextareaProps,
   QuestionnaireComponentPropsType,
 };
 

@@ -2,24 +2,26 @@ import React from 'react'
 import { Typography } from 'antd'
 import styles from '../index.module.scss'
 import { QuestionnaireTitleProps } from '../interface/index'
-import classname from 'classnames'
 
 const defaultQuestionnaireTitleProps: QuestionnaireTitleProps = {
   title: '问卷标题',
   level: 4,
-  isCenter: true
+  isCenter: false
 }
 const { Title } = Typography
 
 const QuestionnaireTitle: React.FC<QuestionnaireTitleProps> = (props) => {
+  const { title, isCenter } = { ...defaultQuestionnaireTitleProps, ...props }
   return (
     <div
-      className={
-      classname([styles['no-click'], styles['component-container']])
-    }>
+      className={styles['no-click']}
+      style={{
+        textAlign: isCenter ? 'center' : 'left'
+      }}
+    >
       <Title
         level={5}
-      >问卷标题</Title>
+      >{ title }</Title>
     </div>
   )
 }

@@ -21,8 +21,10 @@ enum FieldEnum {
  * @description 画布组件类型, 此类型需要和后台的数据保持一致
 */
 enum ComponentTypeEnum {
-  title = 'title',
-  input = 'input'
+  title = "title",
+  input = "input",
+  textarea = "textarea",
+  paragraph = "paragraph",
 }
 
 export { PathEnum, LocalKeyEnum, FieldEnum, ComponentTypeEnum };

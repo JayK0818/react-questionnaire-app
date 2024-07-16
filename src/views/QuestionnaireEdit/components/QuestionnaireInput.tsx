@@ -1,18 +1,25 @@
+/**
+ * @description 用户输入文件
+*/
+
 import React from 'react'
 import type { QuestionnaireInputProps } from '../interface/index'
 import { Typography, Input } from 'antd'
 import styles from '../index.module.scss'
-import classname from 'classnames'
 
 const { Title } = Typography
 
+const defaultQuestionnaireInputProps: QuestionnaireInputProps = {
+  title: '输入框标题',
+  placeholder: '请输入文本...'
+}
+
 const QuestionnaireInput: React.FC<QuestionnaireInputProps> = (props) => {
+  const { title, placeholder } = { ...defaultQuestionnaireInputProps, ...props }
   return (
-    <div className={
-      classname([styles['no-click'], 'component-container'])
-    }>
-      <Title level={5}>用户输入</Title>
-      <Input placeholder={ '请输入文本' } />
+    <div className={ styles['no-click'] }>
+      <Title level={5}>{ title }</Title>
+      <Input placeholder={ placeholder } />
     </div>
   )
 }
