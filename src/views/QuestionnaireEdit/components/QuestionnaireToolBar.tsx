@@ -1,12 +1,14 @@
 import React from 'react'
 import styles from '../index.module.scss'
-import { Button, Space } from 'antd'
-import { LeftOutlined, DeleteOutlined, EyeInvisibleOutlined, LockOutlined } from '@ant-design/icons'
+import { Button, Space, Tooltip } from 'antd'
+import { LeftOutlined, DeleteOutlined, EyeInvisibleOutlined, LockOutlined, CopyOutlined, BlockOutlined } from '@ant-design/icons'
 import { useAppSelector } from '@/store/hooks'
-import { selectActiveComponent } from '@/store/component'
+import { selectActiveComponent, selectActiveComponentId } from '@/store/component'
 
 const QuestionnaireToolBar: React.FC = () => {
   const activeComponent = useAppSelector(selectActiveComponent)
+  const selectedId = useAppSelector(selectActiveComponentId)
+  const isDisabled = selectedId === 0
   return (
     <div className={styles.header}>
       <div>
@@ -19,19 +21,42 @@ const QuestionnaireToolBar: React.FC = () => {
         className={styles['tool-container']}
       >
         <Space size={'middle'}>
-          <Button
-            shape={'circle'} 
-            icon={<DeleteOutlined/>}
-          ></Button>
-          <Button
-            shape={'circle'}
-            icon={ <EyeInvisibleOutlined/> }
-          ></Button>
-          <Button
-            shape={'circle'}
-            icon={<LockOutlined />}
-            type={ activeComponent && activeComponent.isLocked ? 'primary' : 'default' }
-          ></Button>
+          <Tooltip title='删除'>
+            <Button
+              shape={'circle'} 
+              icon={<DeleteOutlined />}
+              disabled={ isDisabled }
+            ></Button>
+          </Tooltip>
+          <Tooltip title='隐藏'>
+            <Button
+              shape={'circle'}
+              icon={<EyeInvisibleOutlined />}
+              disabled={ isDisabled }
+            ></Button>
+          </Tooltip>
+          <Tooltip title='锁定'>
+            <Button
+              shape={'circle'}
+              icon={<LockOutlined />}
+              disabled={ isDisabled }
+              type={ activeComponent && activeComponent.isLocked ? 'primary' : 'default' }
+            ></Button>
+          </Tooltip>
+          <Tooltip title='复制'>
+            <Button
+              shape={'circle'}
+              icon={<CopyOutlined />}
+              disabled={isDisabled}
+            ></Button>
+          </Tooltip>
+          <Tooltip title='黏贴'>
+            <Button
+              shape={'circle'}
+              icon={<BlockOutlined />}
+              disabled={ isDisabled }
+            ></Button>
+          </Tooltip>
         </Space>
       </div>
       <div>

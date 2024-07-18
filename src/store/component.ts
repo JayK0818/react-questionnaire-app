@@ -3,71 +3,144 @@ import type { ComponentListProps } from '@/views/QuestionnaireEdit/interface'
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from './index'
 import { getNextHighlightActiveComponent } from './utils/index'
+import { MoveComponentEnum } from '@/views/QuestionnaireEdit/interface/index'
+
+// document.activeElement
+interface StoreComponentStateProps {
+  list: ComponentListProps[];
+  selectedComponentId: number;
+  copiedComponent: null | ComponentListProps;
+}
+
+const initialState: StoreComponentStateProps = {
+  list: [] as ComponentListProps[],
+  selectedComponentId: 0,
+  copiedComponent: null,
+};
 
 const componentSlice = createSlice({
   name: "component",
-  initialState: {
-    list: [] as ComponentListProps[],
-    activeComponentId: 0
-  },
+  initialState,
   reducers: {
-    increment( // 将组件添加至画布
+    increment(
+      // 将组件添加至画布
       state,
       action: PayloadAction<ComponentListProps>
     ) {
-      const idx = state.list.findIndex(item => item.id === action.payload.id)
+      const idx = state.list.findIndex(
+        (item) => item.id === state.selectedComponentId
+      );
       if (idx === -1) {
-        state.list.push(action.payload)
-        state.activeComponentId = state.list[state.list.length - 1].id
+        state.list.push(action.payload);
       } else {
-        state.list.splice(idx + 1, 0, action.payload)
-        state.activeComponentId = action.payload.id
+        state.list.splice(idx + 1, 0, action.payload);
       }
+      state.selectedComponentId = action.payload.id;
     },
-    delete(state) { // 删除选中的组件
+    delete(state) {
+      // 删除选中的组件
       const activeComponentId = getNextHighlightActiveComponent(
         state.list,
-        state.activeComponentId
+        state.selectedComponentId
       );
-      state.activeComponentId = activeComponentId
-      const idx = state.list.findIndex(item => item.id === state.activeComponentId)
+      state.selectedComponentId = activeComponentId;
+      const idx = state.list.findIndex(
+        (item) => item.id === state.selectedComponentId
+      );
       if (idx >= 0) {
-        state.list.splice(idx, 1)
+        state.list.splice(idx, 1);
       }
     },
-    toggleVisible(state, action: PayloadAction<number | undefined>) { // 切换隐藏/显示组件
-      const activeId = action.payload ?? state.activeComponentId
-      const targetComponent = state.list.find(item => item.id === action.payload)
+    toggleVisible(state, action: PayloadAction<number | undefined>) {
+      // 切换隐藏/显示组件
+      const activeId = action.payload ?? state.selectedComponentId;
+      const targetComponent = state.list.find(
+        (item) => item.id === action.payload
+      );
       if (targetComponent) {
         if (targetComponent.isVisible) {
-          state.activeComponentId = getNextHighlightActiveComponent(
+          state.selectedComponentId = getNextHighlightActiveComponent(
             state.list,
             activeId
           );
         } else {
-          state.activeComponentId = action.payload as number
+          state.selectedComponentId = action.payload as number;
         }
         targetComponent.isVisible = !targetComponent.isVisible;
       }
     },
     toggleLock(state, action: PayloadAction<number>) {
-      const targetComponent = state.list.find(item => item.id === action.payload)
+      const targetComponent = state.list.find(
+        (item) => item.id === action.payload
+      );
       if (targetComponent) {
-        targetComponent.isLocked = !targetComponent.isLocked
+        targetComponent.isLocked = !targetComponent.isLocked;
       }
-    }
-  }
+    },
+    copy(state, action: PayloadAction<number>) {
+      // 复制组件
+      const targetComponent = state.list.find(
+        (item) => item.id === action.payload
+      );
+      if (targetComponent) {
+        state.copiedComponent = targetComponent;
+      }
+    },
+    paste(state) {
+      // 黏贴
+      if (state.copiedComponent) {
+        const idx = state.list.findIndex(
+          (item) => item.id === state.selectedComponentId
+        );
+        if (idx === -1) {
+          state.list.push(state.copiedComponent);
+        } else {
+          state.list.splice(idx + 1, 0, state.copiedComponent);
+        }
+      }
+    },
+    // 移动高亮组件 上-下操作
+    move(state, action: PayloadAction<MoveComponentEnum>) {
+      if (state.list.length <= 1) {
+        return
+      }
+      const idx = state.list.findIndex(item => item.id === state.selectedComponentId)
+      if (idx === -1) {
+        return
+      }
+      switch (action.payload) {
+        case MoveComponentEnum.down:
+          if (idx === state.list.length - 1) {
+            state.selectedComponentId = 0
+          } else {
+            state.selectedComponentId = state.list[idx + 1].id
+          }
+          break
+        case MoveComponentEnum.up:
+          if (idx === 0) {
+            state.selectedComponentId = state.list[state.list.length - 1].id
+          } else {
+            state.selectedComponentId = state.list[idx - 1].id
+          }
+          break
+      }
+    },
+  },
 });
 
 /**
  * @description 选择高亮id
 */
-const selectActiveComponentId = (state: RootState) => state.component.activeComponentId
+const selectActiveComponentId = (state: RootState) =>
+  state.component.selectedComponentId;
 
 /**
  * @description 选择高亮的组件
 */
-const selectActiveComponent = (state: RootState) => state.component.list.find(item => item.id === state.component.activeComponentId)
+const selectActiveComponent = (state: RootState) =>
+  state.component.list.find(
+    (item) => item.id === state.component.selectedComponentId
+  );
 
 /**
  * @description 选择组件列表

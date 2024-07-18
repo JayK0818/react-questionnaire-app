@@ -1,10 +1,9 @@
 import React from 'react'
 import { Input, Typography } from 'antd'
-import styles from '../index.module.scss'
 import type { QuestionnaireTextareaProps } from '../interface/index'
 
 const { TextArea } = Input
-const { Title } = Typography
+const { Paragraph } = Typography
 
 const defaultQuestionnaireTextareaProps: QuestionnaireTextareaProps = {
   title: '多行输入框标题',
@@ -14,8 +13,8 @@ const defaultQuestionnaireTextareaProps: QuestionnaireTextareaProps = {
 const QuestionnaireTextArea: React.FC<QuestionnaireTextareaProps> = (props) => {
   const { title, placeholder } = { ...defaultQuestionnaireTextareaProps, ...props }
   return (
-    <div className={styles['no-click']}>
-      <Title level={5}>{title}</Title>
+    <React.Fragment>
+      <Paragraph>{title}</Paragraph>
       <TextArea
         placeholder={placeholder}
         style={{
@@ -23,7 +22,7 @@ const QuestionnaireTextArea: React.FC<QuestionnaireTextareaProps> = (props) => {
           height: 60
         }}
       />
-    </div>
+    </React.Fragment>
   )
 }
 

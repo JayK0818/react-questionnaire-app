@@ -14,7 +14,7 @@ enum QuestionnaireEditTabEnum {
  * @description 问卷标题属性
 */
 interface QuestionnaireTitleProps {
-  title?: string;
+  text?: string;
   level?: 1 | 2 | 3 | 4 | 5;
   isCenter?: boolean;
 }
@@ -33,10 +33,19 @@ interface QuestionnaireTextareaProps {
   placeholder?: string
 }
 
+/**
+ * @description 段落
+*/
+interface QuestionnaireParagraphProps {
+  text?: string
+  isCenter?: boolean
+}
+
 type QuestionnaireComponentPropsType =
   | QuestionnaireTitleProps
   | QuestionnaireInputProps
-  | QuestionnaireTextareaProps;
+  | QuestionnaireTextareaProps
+  | QuestionnaireParagraphProps;
 
 
   /**
@@ -50,12 +59,21 @@ interface ComponentListProps {
   isLocked: boolean;
 }
 
+/**
+ * @description 移动组件 上/下
+*/
+enum MoveComponentEnum {
+  up = 1,
+  down
+}
+
 export type {
   QuestionnaireTitleProps,
   QuestionnaireInputProps,
-  ComponentListProps,
   QuestionnaireTextareaProps,
+  QuestionnaireParagraphProps,
+  ComponentListProps,
   QuestionnaireComponentPropsType,
 };
 
-export { QuestionnaireEditTabEnum };
+export { QuestionnaireEditTabEnum, MoveComponentEnum };
