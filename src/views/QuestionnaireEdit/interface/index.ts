@@ -41,13 +41,11 @@ interface QuestionnaireParagraphProps {
   isCenter?: boolean
 }
 
-type QuestionnaireComponentPropsType =
-  | QuestionnaireTitleProps
-  | QuestionnaireInputProps
-  | QuestionnaireTextareaProps
-  | QuestionnaireParagraphProps;
-
-
+// 描述
+interface QuestionnaireDescriptionProps {
+  title?: string
+  description?: string
+}
   /**
    * @description 组件列表
   */
@@ -60,6 +58,19 @@ interface ComponentListProps {
 }
 
 /**
+ * @description 单选按钮
+*/
+interface QuestionnaireRadioProps {
+  title?: string
+  isVertical?: boolean
+  options?: Array<{
+    label: string
+    value: string
+  }>
+  value?: string
+}
+
+/**
  * @description 移动组件 上/下
 */
 enum MoveComponentEnum {
@@ -67,12 +78,23 @@ enum MoveComponentEnum {
   down
 }
 
+// 所有属性联合类型
+type QuestionnaireComponentPropsType =
+  | QuestionnaireTitleProps
+  | QuestionnaireInputProps
+  | QuestionnaireTextareaProps
+  | QuestionnaireParagraphProps
+  | QuestionnaireDescriptionProps
+  | QuestionnaireRadioProps;
+
 export type {
   QuestionnaireTitleProps,
   QuestionnaireInputProps,
   QuestionnaireTextareaProps,
   QuestionnaireParagraphProps,
   ComponentListProps,
+  QuestionnaireRadioProps,
+  QuestionnaireDescriptionProps,
   QuestionnaireComponentPropsType,
 };
 

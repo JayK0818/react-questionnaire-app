@@ -6,6 +6,8 @@ import styles from '../index.module.scss'
 import QuestionnaireTitle from './QuestionnaireTtile'
 import QuestionnaireInput from './QuestionnaireInput'
 import QuestionnaireTextArea from './QuestionnaireTextarea'
+import QuestionnaireDescription from './QuestionnaireDescription'
+import QuestionnaireRadio from './QuestionnaireRadio'
 
 /**
  * @description 组件列表
@@ -13,7 +15,9 @@ import QuestionnaireTextArea from './QuestionnaireTextarea'
 const componentList: Array<React.FC> = [
   QuestionnaireTitle,
   QuestionnaireInput,
-  QuestionnaireTextArea
+  QuestionnaireTextArea,
+  QuestionnaireDescription,
+  QuestionnaireRadio
 ]
 
 // 组件列表
