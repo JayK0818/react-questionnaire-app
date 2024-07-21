@@ -71,11 +71,33 @@ interface QuestionnaireRadioProps {
 }
 
 /**
+ * @description checkbox类型
+*/
+interface QuestionnaireCheckboxProps {
+  title?: string
+  isVertical?: boolean
+  options?: Array<{
+    label: string
+    value: string
+    checked?: boolean
+  }>
+}
+
+/**
  * @description 移动组件 上/下
 */
 enum MoveComponentEnum {
   up = 1,
   down
+}
+
+/**
+ * @description 组件分组名
+*/
+enum GroupTypeEnum {
+  text = 1,
+  user_type,
+  user_select
 }
 
 // 所有属性联合类型
@@ -85,7 +107,8 @@ type QuestionnaireComponentPropsType =
   | QuestionnaireTextareaProps
   | QuestionnaireParagraphProps
   | QuestionnaireDescriptionProps
-  | QuestionnaireRadioProps;
+  | QuestionnaireRadioProps
+  | QuestionnaireCheckboxProps;
 
 export type {
   QuestionnaireTitleProps,
@@ -94,8 +117,9 @@ export type {
   QuestionnaireParagraphProps,
   ComponentListProps,
   QuestionnaireRadioProps,
+  QuestionnaireCheckboxProps,
   QuestionnaireDescriptionProps,
   QuestionnaireComponentPropsType,
 };
 
-export { QuestionnaireEditTabEnum, MoveComponentEnum };
+export { QuestionnaireEditTabEnum, MoveComponentEnum, GroupTypeEnum };

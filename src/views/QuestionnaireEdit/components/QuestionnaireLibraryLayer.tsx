@@ -1,33 +1,65 @@
 import React from 'react'
-import { Tabs } from 'antd'
-import { QuestionnaireEditTabEnum } from '../interface/index'
+import { Tabs, Typography } from 'antd'
+import { QuestionnaireEditTabEnum, GroupTypeEnum } from '../interface/index'
 import { UnorderedListOutlined, AppstoreOutlined } from '@ant-design/icons'
 import styles from '../index.module.scss'
 import QuestionnaireTitle from './QuestionnaireTtile'
+import QuestionnaireParagraph from './QuestionnaireParagraph'
 import QuestionnaireInput from './QuestionnaireInput'
 import QuestionnaireTextArea from './QuestionnaireTextarea'
 import QuestionnaireDescription from './QuestionnaireDescription'
 import QuestionnaireRadio from './QuestionnaireRadio'
+import QuestionnaireCheckbox from './QuestionnaireCheckbox'
 
+const { Title } = Typography
 /**
  * @description 组件列表
 */
-const componentList: Array<React.FC> = [
-  QuestionnaireTitle,
-  QuestionnaireInput,
-  QuestionnaireTextArea,
-  QuestionnaireDescription,
-  QuestionnaireRadio
+const componentGroupList = [
+  {
+    label: '文本显示',
+    value: GroupTypeEnum.text,
+    children: [
+      QuestionnaireDescription,
+      QuestionnaireTitle,
+      QuestionnaireParagraph
+    ]
+  },
+  {
+    label: '用户输入',
+    value: GroupTypeEnum.user_type,
+    children: [
+      QuestionnaireInput,
+      QuestionnaireTextArea
+    ]
+  },
+  {
+    label: '用户选择',
+    value: GroupTypeEnum.user_select,
+    children: [
+      QuestionnaireRadio,
+      QuestionnaireCheckbox
+    ]
+  }
 ]
 
 // 组件列表
 const Library: React.FC = () => {
   return (<div className={styles['layer-card']}>
     {
-      componentList.map((Component, i) => (
-        <div key={i} className={styles['component-container']}>
-          <Component/>
-        </div>
+      componentGroupList.map((group) => (
+        <React.Fragment key={group.value}>
+          <Title
+            level={5}
+          >{group.label}</Title>
+          {
+            group.children.map((Component, i) => (
+              <div key={ i } className={ styles['component-container'] } >
+                <Component/>
+              </div>
+            ))
+          }
+        </React.Fragment>
       ))
     }
   </div>)

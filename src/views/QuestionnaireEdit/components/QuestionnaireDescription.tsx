@@ -2,7 +2,7 @@ import React from 'react'
 import type { QuestionnaireDescriptionProps } from '../interface/index'
 import { Typography } from 'antd'
 
-const defaultProps: QuestionnaireDescriptionProps = {
+const defaultProps: Required<QuestionnaireDescriptionProps> = {
   title: '这是一个段落',
   description : '段落描述...'
 }
@@ -10,7 +10,7 @@ const defaultProps: QuestionnaireDescriptionProps = {
 const { Title, Paragraph } = Typography
  
 const QuestionnaireDescription: React.FC<QuestionnaireDescriptionProps> = (props) => {
-  const { title, description = '' } = { ...defaultProps, ...props }
+  const { title, description } = { ...defaultProps, ...props }
   // 新增换行
   const descriptionList = description.split('\n').filter(Boolean)
   return (

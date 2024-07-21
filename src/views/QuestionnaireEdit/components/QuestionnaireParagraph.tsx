@@ -4,7 +4,7 @@ import { Typography } from 'antd'
 
 const { Paragraph } = Typography
 
-const defaultQuestionnaireParagraphProps: QuestionnaireParagraphProps = {
+const defaultQuestionnaireParagraphProps: Required<QuestionnaireParagraphProps> = {
   text: '一段文本',
   isCenter: false
 }

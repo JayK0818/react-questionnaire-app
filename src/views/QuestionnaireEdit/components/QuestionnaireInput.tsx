@@ -7,7 +7,7 @@ import { Typography, Input } from 'antd'
 
 const { Paragraph } = Typography
 
-const defaultQuestionnaireInputProps: QuestionnaireInputProps = {
+const defaultQuestionnaireInputProps: Required<QuestionnaireInputProps> = {
   title: '输入框标题',
   placeholder: '请输入文本...'
 }

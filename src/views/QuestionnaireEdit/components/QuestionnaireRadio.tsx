@@ -1,25 +1,26 @@
 import React from 'react'
 import type { QuestionnaireRadioProps } from '../interface/index'
+import { nanoid } from 'nanoid'
 import { Typography, Radio, Space } from 'antd'
 
 const { Paragraph } = Typography
 
 // 默认选项
-const defaultRadioProps: QuestionnaireRadioProps = {
+const defaultRadioProps: Required<QuestionnaireRadioProps> = {
   title: '单选标题',
   isVertical: false,
   options: [
     {
       label: '选项一',
-      value: 'item1'
+      value: nanoid()
     },
     {
       label: '选项二',
-      value: 'item2'
+      value: nanoid()
     },
     {
       label: '选项三',
-      value: 'item3'
+      value: nanoid()
     }
   ],
   value: ''
