@@ -46,9 +46,16 @@
       overflow: auto;
     }
     .component-container {
-      margin-bottom: 8px;
+      margin: 4px 0;
       padding: 10px 12px;
       background-color: #f4f4f4;
+      cursor: pointer;
+      border: 1px solid #fff;
+      transition: border-color .2s;
+      &:hover {
+        border-color: #1890ff;
+      }
+      user-select: none;
     }
   }
   .tool-container {

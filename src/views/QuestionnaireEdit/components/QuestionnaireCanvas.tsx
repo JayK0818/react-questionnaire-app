@@ -14,24 +14,36 @@ import type {
 const QuestionnaireCanvas: React.FC = () => {
   const componentList = useAppSelector(selectComponentList)
   return (
-    <React.Fragment>
+    <div>
       {
-        componentList.map(c => {
+        componentList.map((c, i) => {
           switch (c.type) {
             case ComponentTypeEnum.input:
-              return <QuestionnaireInput {...(c.props as QuestionnaireInputProps)} />
+              return <QuestionnaireInput
+                {...(c.props as QuestionnaireInputProps)}
+                key={ c.id }
+              />
             case ComponentTypeEnum.title:
-              return <QuestionnaireTitle {...(c.props as QuestionnaireTitleProps)} />
+              return <QuestionnaireTitle
+                {...(c.props as QuestionnaireTitleProps)}
+                key={ c.id }
+              />
             case ComponentTypeEnum.textarea:
-              return <QuestionnaireTextArea {...(c.props as QuestionnaireTextareaProps)} />
+              return <QuestionnaireTextArea
+                {...(c.props as QuestionnaireTextareaProps)}
+                key={c.id}
+              />
             case ComponentTypeEnum.paragraph:
-              return <QuestionnaireParagraph {...(c.props as QuestionnaireParagraphProps)} />
+              return <QuestionnaireParagraph
+                {...(c.props as QuestionnaireParagraphProps)}
+                key={c.id}
+              />
             default:
               return null
           }
         })
       }
-    </React.Fragment>
+    </div>
   )
 }
 

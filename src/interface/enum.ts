@@ -25,6 +25,9 @@ enum ComponentTypeEnum {
   input = "input",
   textarea = "textarea",
   paragraph = "paragraph",
+  checkbox = 'checkbox',
+  radio = 'radio',
+  description = 'description'
 }
 
 export { PathEnum, LocalKeyEnum, FieldEnum, ComponentTypeEnum };

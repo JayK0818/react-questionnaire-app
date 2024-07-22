@@ -6,7 +6,7 @@ import { Typography, Radio, Space } from 'antd'
 const { Paragraph } = Typography
 
 // 默认选项
-const defaultRadioProps: Required<QuestionnaireRadioProps> = {
+const defaultQuestionnaireRadioProps: Required<QuestionnaireRadioProps> = {
   title: '单选标题',
   isVertical: false,
   options: [
@@ -23,11 +23,12 @@ const defaultRadioProps: Required<QuestionnaireRadioProps> = {
       value: nanoid()
     }
   ],
-  value: ''
+  value: '',
+  disabled: false
 }
 
 const QuestionnaireRadio: React.FC<QuestionnaireRadioProps> = (props) => {
-  const { title, options = [], isVertical, value } = { ...defaultRadioProps, ...props }
+  const { title, options = [], isVertical, value, disabled } = { ...defaultQuestionnaireRadioProps, ...props }
   return (
     <div>
       <Paragraph>{title}</Paragraph>
@@ -37,12 +38,17 @@ const QuestionnaireRadio: React.FC<QuestionnaireRadioProps> = (props) => {
             <Radio
               value={option.value}
               key={option.value}
+              disabled={ disabled }
             >{option.label}</Radio>
           )) }
         </Space>
       </Radio.Group>
     </div>
   )
+}
+
+export {
+  defaultQuestionnaireRadioProps
 }
 
 export default QuestionnaireRadio

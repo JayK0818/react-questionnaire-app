@@ -8,13 +8,13 @@ import { MoveComponentEnum } from '@/views/QuestionnaireEdit/interface/index'
 // document.activeElement
 interface StoreComponentStateProps {
   list: ComponentListProps[];
-  selectedComponentId: number;
+  selectedComponentId: string;
   copiedComponent: null | ComponentListProps;
 }
 
 const initialState: StoreComponentStateProps = {
   list: [] as ComponentListProps[],
-  selectedComponentId: 0,
+  selectedComponentId: '',
   copiedComponent: null,
 };
 
@@ -51,7 +51,7 @@ const componentSlice = createSlice({
         state.list.splice(idx, 1);
       }
     },
-    toggleVisible(state, action: PayloadAction<number | undefined>) {
+    toggleVisible(state, action: PayloadAction<string | undefined>) {
       // 切换隐藏/显示组件
       const activeId = action.payload ?? state.selectedComponentId;
       const targetComponent = state.list.find(
@@ -64,12 +64,12 @@ const componentSlice = createSlice({
             activeId
           );
         } else {
-          state.selectedComponentId = action.payload as number;
+          state.selectedComponentId = action.payload as string;
         }
         targetComponent.isVisible = !targetComponent.isVisible;
       }
     },
-    toggleLock(state, action: PayloadAction<number>) {
+    toggleLock(state, action: PayloadAction<string>) {
       const targetComponent = state.list.find(
         (item) => item.id === action.payload
       );
@@ -77,7 +77,7 @@ const componentSlice = createSlice({
         targetComponent.isLocked = !targetComponent.isLocked;
       }
     },
-    copy(state, action: PayloadAction<number>) {
+    copy(state, action: PayloadAction<string>) {
       // 复制组件
       const targetComponent = state.list.find(
         (item) => item.id === action.payload
@@ -102,27 +102,29 @@ const componentSlice = createSlice({
     // 移动高亮组件 上-下操作
     move(state, action: PayloadAction<MoveComponentEnum>) {
       if (state.list.length <= 1) {
-        return
+        return;
       }
-      const idx = state.list.findIndex(item => item.id === state.selectedComponentId)
+      const idx = state.list.findIndex(
+        (item) => item.id === state.selectedComponentId
+      );
       if (idx === -1) {
-        return
+        return;
       }
       switch (action.payload) {
         case MoveComponentEnum.down:
           if (idx === state.list.length - 1) {
-            state.selectedComponentId = 0
+            state.selectedComponentId = '';
           } else {
-            state.selectedComponentId = state.list[idx + 1].id
+            state.selectedComponentId = state.list[idx + 1].id;
           }
-          break
+          break;
         case MoveComponentEnum.up:
           if (idx === 0) {
-            state.selectedComponentId = state.list[state.list.length - 1].id
+            state.selectedComponentId = state.list[state.list.length - 1].id;
           } else {
-            state.selectedComponentId = state.list[idx - 1].id
+            state.selectedComponentId = state.list[idx - 1].id;
           }
-          break
+          break;
       }
     },
   },

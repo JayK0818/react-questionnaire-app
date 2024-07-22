@@ -24,4 +24,8 @@ const QuestionnaireTitle: React.FC<QuestionnaireTitleProps> = (props) => {
   )
 }
 
+export {
+  defaultQuestionnaireTitleProps
+}
+
 export default QuestionnaireTitle

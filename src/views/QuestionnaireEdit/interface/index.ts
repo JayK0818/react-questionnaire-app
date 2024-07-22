@@ -17,20 +17,23 @@ interface QuestionnaireTitleProps {
   text?: string;
   level?: 1 | 2 | 3 | 4 | 5;
   isCenter?: boolean;
+  disabled?: boolean;
 }
 /**
  * @description 问卷标题属性
 */
 interface QuestionnaireInputProps {
-  title?: string
-  placeholder?: string
+  title?: string;
+  placeholder?: string;
+  disabled?: boolean;
 }
 /**
  * @description 多行输入标题
 */
 interface QuestionnaireTextareaProps {
-  title?: string
-  placeholder?: string
+  title?: string;
+  placeholder?: string;
+  disabled?: boolean;
 }
 
 /**
@@ -50,7 +53,8 @@ interface QuestionnaireDescriptionProps {
    * @description 组件列表
   */
 interface ComponentListProps {
-  id: number;
+  id: string;
+  title: string
   props: QuestionnaireComponentPropsType;
   type: ComponentTypeEnum;
   isVisible: boolean;
@@ -63,10 +67,11 @@ interface ComponentListProps {
 interface QuestionnaireRadioProps {
   title?: string
   isVertical?: boolean
+  disabled?: boolean
   options?: Array<{
     label: string
     value: string
-  }>
+  }> 
   value?: string
 }
 
@@ -74,13 +79,14 @@ interface QuestionnaireRadioProps {
  * @description checkbox类型
 */
 interface QuestionnaireCheckboxProps {
-  title?: string
-  isVertical?: boolean
+  title?: string;
+  isVertical?: boolean;
+  disabled?: boolean;
   options?: Array<{
-    label: string
-    value: string
-    checked?: boolean
-  }>
+    label: string;
+    value: string;
+    checked?: boolean;
+  }>;
 }
 
 /**

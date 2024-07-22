@@ -22,4 +22,8 @@ const QuestionnaireParagraph: React.FC<QuestionnaireParagraphProps> = (props) =>
   )
 }
 
+export {
+  defaultQuestionnaireParagraphProps
+}
+
 export default QuestionnaireParagraph

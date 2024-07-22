@@ -11,6 +11,7 @@ const { Paragraph } = Typography
 const defaultQuestionnaireCheckboxProps: Required<QuestionnaireCheckboxProps> = {
   title: '用户多选',
   isVertical: false,
+  disabled: false,
   options: [
     {
       label: '选项一',
@@ -31,7 +32,7 @@ const defaultQuestionnaireCheckboxProps: Required<QuestionnaireCheckboxProps> = 
 }
 
 const QuestionnaireCheckbox: React.FC<QuestionnaireCheckboxProps> = (props) => {
-  const { title, options, isVertical } = { ...defaultQuestionnaireCheckboxProps, ...props }
+  const { title, options, isVertical, disabled } = { ...defaultQuestionnaireCheckboxProps, ...props }
   return (
     <div>
       <Paragraph>{title}</Paragraph>
@@ -42,6 +43,7 @@ const QuestionnaireCheckbox: React.FC<QuestionnaireCheckboxProps> = (props) => {
           <Checkbox
             checked={option.checked}
             value={option.value}
+            disabled={ disabled }
             key={option.value}
           >{ option.label }</Checkbox>
         )) }
@@ -51,3 +53,7 @@ const QuestionnaireCheckbox: React.FC<QuestionnaireCheckboxProps> = (props) => {
 }
 
 export default QuestionnaireCheckbox
+
+export {
+  defaultQuestionnaireCheckboxProps
+}

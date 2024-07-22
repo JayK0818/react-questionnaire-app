@@ -8,7 +8,7 @@ import { selectActiveComponent, selectActiveComponentId } from '@/store/componen
 const QuestionnaireToolBar: React.FC = () => {
   const activeComponent = useAppSelector(selectActiveComponent)
   const selectedId = useAppSelector(selectActiveComponentId)
-  const isDisabled = selectedId === 0
+  const isDisabled = selectedId === ''
   return (
     <div className={styles.header}>
       <div>
