@@ -44,6 +44,27 @@
       min-width: 320px;
       background-color: #fff;
       overflow: auto;
+      .layer-item {
+        display: flex;
+        align-items: center;
+        padding: 10px 8px;
+        background-color: #fff;
+        border-bottom: 1px solid #e8e8e8;
+        &.disabled {
+          background-color: rgba(0, 0, 0, .05);
+        }
+        .flex-1 {
+          flex: 1;
+          min-width: 0;
+        }
+        .icon {
+          padding: 0 3px;
+          cursor: pointer;
+          &.disabled {
+            color: rgba(0, 0, 0, .45);
+          }
+        }
+      }
     }
     .component-container {
       margin: 4px 0;

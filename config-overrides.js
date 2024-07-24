@@ -12,7 +12,15 @@ module.exports = override(
     test: /\.scss$/,
     use: [
       'style-loader',
-      'css-loader',
+      {
+        loader: 'css-loader',
+        options: {
+          modules: {
+            auto: true,
+            localIdentName: '[local]-[hash:base64:4]'
+          }
+        }
+      },
       'sass-loader',
       {
         loader: 'sass-resources-loader',

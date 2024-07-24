@@ -5,39 +5,36 @@ import QuestionnaireInput from './QuestionnaireInput'
 import QuestionnaireTitle from './QuestionnaireTtile'
 import QuestionnaireTextArea from './QuestionnaireTextarea'
 import QuestionnaireParagraph from './QuestionnaireParagraph'
+import QuestionnaireCheckbox from './QuestionnaireCheckbox'
+import QuestionnaireRadio from './QuestionnaireRadio'
+import QuestionnaireDescription from './QuestionnaireDescription'
 import { ComponentTypeEnum } from "@/interface/enum";
-import type {
+/* import type {
   QuestionnaireTitleProps, QuestionnaireInputProps,
   QuestionnaireTextareaProps, QuestionnaireParagraphProps
-} from '../interface/index'
+} from '../interface/index' */
 
 const QuestionnaireCanvas: React.FC = () => {
   const componentList = useAppSelector(selectComponentList)
   return (
     <div>
       {
-        componentList.map((c, i) => {
+        componentList.map((c) => {
           switch (c.type) {
             case ComponentTypeEnum.input:
-              return <QuestionnaireInput
-                {...(c.props as QuestionnaireInputProps)}
-                key={ c.id }
-              />
+              return <QuestionnaireInput {...c.props} key={ c.id }/>
             case ComponentTypeEnum.title:
-              return <QuestionnaireTitle
-                {...(c.props as QuestionnaireTitleProps)}
-                key={ c.id }
-              />
+              return <QuestionnaireTitle {...c.props} key={ c.id }/>
             case ComponentTypeEnum.textarea:
-              return <QuestionnaireTextArea
-                {...(c.props as QuestionnaireTextareaProps)}
-                key={c.id}
-              />
+              return <QuestionnaireTextArea {...c.props} key={c.id}/>
             case ComponentTypeEnum.paragraph:
-              return <QuestionnaireParagraph
-                {...(c.props as QuestionnaireParagraphProps)}
-                key={c.id}
-              />
+              return <QuestionnaireParagraph {...c.props} key={c.id}/>
+            case ComponentTypeEnum.checkbox:
+              return <QuestionnaireCheckbox key={c.id} {...c.props}/>
+            case ComponentTypeEnum.radio:
+              return <QuestionnaireRadio key={c.id} {...c.props}/>
+            case ComponentTypeEnum.description:
+              return <QuestionnaireDescription key={c.id} {...c.props} />
             default:
               return null
           }

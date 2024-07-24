@@ -1,7 +1,7 @@
 import React from 'react'
 import { Tabs, Typography, Empty } from 'antd'
 import { QuestionnaireEditTabEnum, GroupTypeEnum } from '../interface/index'
-import { UnorderedListOutlined, AppstoreOutlined } from '@ant-design/icons'
+import { UnorderedListOutlined, AppstoreOutlined, LockOutlined, EyeInvisibleOutlined } from '@ant-design/icons'
 import styles from '../index.module.scss'
 import QuestionnaireTitle, { defaultQuestionnaireTitleProps } from './QuestionnaireTtile'
 import QuestionnaireParagraph, { defaultQuestionnaireParagraphProps } from './QuestionnaireParagraph'
@@ -141,7 +141,22 @@ const Layer: React.FC = () => {
     {componentList.length > 0
       ? (
         componentList.map(item => (
-          <div key={item.id}>{ item.title }</div>
+          <div
+            key={item.id}
+            className={ styles['layer-item'] }
+          >
+            <div className={styles['flex-1']}>
+              {item.title}
+            </div>
+            <div className={styles['icon-box']}>
+              <span className={styles['icon']}>
+                <EyeInvisibleOutlined/>
+              </span>
+              <span className={styles['icon']}>
+                <LockOutlined/>
+              </span>
+            </div>
+          </div>
         ))
       ): <Empty image = {Empty.PRESENTED_IMAGE_SIMPLE}/> }
   </div>)
