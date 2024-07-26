@@ -1,3 +1,4 @@
+import styles from '../index.module.scss'
 /**
  * @description 用户输入文件
 */
@@ -14,12 +15,18 @@ const defaultQuestionnaireInputProps: Required<QuestionnaireInputProps> = {
 }
 
 const QuestionnaireInput: React.FC<QuestionnaireInputProps> = (props) => {
-  const { title, placeholder, disabled = false } = { ...defaultQuestionnaireInputProps, ...props }
+  const { title, placeholder, disabled } = { ...defaultQuestionnaireInputProps, ...props }
   return (
-    <div>
-      <Paragraph>{ title }</Paragraph>
-      <Input placeholder={placeholder} disabled={ disabled } />
-    </div>
+    <React.Fragment>
+      { disabled && <div className={ styles['disabled-mask'] }></div> }
+      <div>
+        <Paragraph>{ title }</Paragraph>
+        <Input
+          placeholder={placeholder}
+          disabled={ disabled }
+        />
+      </div>
+    </React.Fragment>
   )
 }
 

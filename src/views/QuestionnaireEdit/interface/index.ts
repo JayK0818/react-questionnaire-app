@@ -1,4 +1,4 @@
-import type { ComponentTypeEnum } from "@/interface/enum";
+import type { ComponentTypeEnum,  } from "@/interface/enum";
 
 /**
  * @description 组件库/图层类型
@@ -54,9 +54,10 @@ interface QuestionnaireDescriptionProps {
   */
 interface ComponentListProps {
   id: string;
-  title: string
+  title: string;
   props: QuestionnaireComponentPropsType;
   type: ComponentTypeEnum;
+  groupType: GroupTypeEnum;
   isVisible: boolean;
   isLocked: boolean;
 }

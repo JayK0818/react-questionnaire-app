@@ -74,7 +74,7 @@ const componentGroupList = [
 */
 const Library: React.FC = () => {
   const dispatch = useAppDispatch()
-  const handleSelectComponent = (type: ComponentTypeEnum): void => {
+  const handleSelectComponent = (type: ComponentTypeEnum, groupType: GroupTypeEnum): void => {
     let props: any = {}
     switch (type) {
       case ComponentTypeEnum.title:
@@ -102,6 +102,7 @@ const Library: React.FC = () => {
     dispatch(increment({
       id: nanoid(),
       title: componentTitleMap[type],
+      groupType,
       type,
       isLocked: false,
       isVisible: true,
@@ -120,7 +121,7 @@ const Library: React.FC = () => {
               <div
                 key={i}
                 className={styles['component-container']}
-                onClick={ () => handleSelectComponent(child.type) }
+                onClick={ (e) => handleSelectComponent(child.type, group.value) }
               >
                 { child.element }
               </div>

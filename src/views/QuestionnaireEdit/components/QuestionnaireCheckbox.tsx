@@ -2,6 +2,7 @@ import { nanoid } from '@reduxjs/toolkit'
 import React from 'react'
 import { Typography, Space, Checkbox } from 'antd'
 import { QuestionnaireCheckboxProps } from '../interface/index'
+import styles from '../index.module.scss'
 
 const { Paragraph } = Typography
 
@@ -34,21 +35,24 @@ const defaultQuestionnaireCheckboxProps: Required<QuestionnaireCheckboxProps> = 
 const QuestionnaireCheckbox: React.FC<QuestionnaireCheckboxProps> = (props) => {
   const { title, options, isVertical, disabled } = { ...defaultQuestionnaireCheckboxProps, ...props }
   return (
-    <div>
-      <Paragraph>{title}</Paragraph>
-      <Space
-        direction={ isVertical ? 'vertical' : 'horizontal' }
-      >
-        {options.length > 0 && options.map(option => (
-          <Checkbox
-            checked={option.checked}
-            value={option.value}
-            disabled={ disabled }
-            key={option.value}
-          >{ option.label }</Checkbox>
-        )) }
-      </Space>
-    </div>
+    <React.Fragment>
+      { disabled && <div className={ styles['disabled-mask'] }></div> }
+      <div>
+        <Paragraph>{title}</Paragraph>
+        <Space
+          direction={ isVertical ? 'vertical' : 'horizontal' }
+        >
+          {options.length > 0 && options.map(option => (
+            <Checkbox
+              checked={option.checked}
+              value={option.value}
+              key={option.value}
+              disabled={ disabled }
+            >{ option.label }</Checkbox>
+          )) }
+        </Space>
+      </div>
+    </React.Fragment>
   )
 }
 

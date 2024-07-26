@@ -1,6 +1,7 @@
 import React from 'react'
 import { Input, Typography } from 'antd'
 import type { QuestionnaireTextareaProps } from '../interface/index'
+import styles from '../index.module.scss'
 
 const { TextArea } = Input
 const { Paragraph } = Typography
@@ -12,9 +13,10 @@ const defaultQuestionnaireTextareaProps: Required<QuestionnaireTextareaProps> = 
 }
 
 const QuestionnaireTextArea: React.FC<QuestionnaireTextareaProps> = (props) => {
-  const { title, placeholder, disabled = false } = { ...defaultQuestionnaireTextareaProps, ...props }
+  const { title, placeholder, disabled } = { ...defaultQuestionnaireTextareaProps, ...props }
   return (
     <React.Fragment>
+      <div className={ styles['disabled-mask'] }></div>
       <Paragraph>{title}</Paragraph>
       <TextArea
         placeholder={placeholder}
