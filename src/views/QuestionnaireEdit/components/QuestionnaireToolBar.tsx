@@ -1,14 +1,36 @@
 import React from 'react'
 import styles from '../index.module.scss'
 import { Button, Space, Tooltip } from 'antd'
-import { LeftOutlined, DeleteOutlined, EyeInvisibleOutlined, LockOutlined, CopyOutlined, BlockOutlined } from '@ant-design/icons'
-import { useAppSelector } from '@/store/hooks'
-import { selectActiveComponent, selectActiveComponentId } from '@/store/component'
+import {
+  LeftOutlined, DeleteOutlined, EyeInvisibleOutlined, LockOutlined,
+  CopyOutlined, BlockOutlined, UpOutlined, DownOutlined
+} from '@ant-design/icons'
+import { useAppSelector, useAppDispatch } from '@/store/hooks'
+import {
+  selectActiveComponent, selectActiveComponentId, selectActiveComponentIdx, selectComponentList,
+  swap
+} from '@/store/component'
+import { MoveComponentEnum } from '../interface/index'
 
 const QuestionnaireToolBar: React.FC = () => {
   const activeComponent = useAppSelector(selectActiveComponent)
   const selectedId = useAppSelector(selectActiveComponentId)
+  const selectedIdx = useAppSelector(selectActiveComponentIdx)
+  const componentList = useAppSelector(selectComponentList)
   const isDisabled = selectedId === ''
+  // dispatch
+  const dispatch = useAppDispatch()
+
+  // 上下移动
+  const handleSwap = (type: MoveComponentEnum): void => {
+    if (selectedIdx < 0) {
+      return
+    }
+    dispatch(swap({
+      type,
+      index: selectedIdx
+    }))
+  }
   return (
     <div className={styles.header}>
       <div>
@@ -55,6 +77,22 @@ const QuestionnaireToolBar: React.FC = () => {
               shape={'circle'}
               icon={<BlockOutlined />}
               disabled={ isDisabled }
+            ></Button>
+          </Tooltip>
+          <Tooltip title='上移'>
+            <Button
+              shape={'circle'}
+              icon={<UpOutlined />}
+              disabled={isDisabled || selectedIdx <= 0}
+              onClick={ () => handleSwap(MoveComponentEnum.up) }
+            ></Button>
+          </Tooltip>
+          <Tooltip title='下移'>
+            <Button
+              shape={'circle'}
+              icon={<DownOutlined />}
+              disabled={ isDisabled || (componentList.length - 1 <= selectedIdx) }
+              onClick={ () => handleSwap(MoveComponentEnum.down) }
             ></Button>
           </Tooltip>
         </Space>

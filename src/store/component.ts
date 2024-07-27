@@ -113,7 +113,7 @@ const componentSlice = createSlice({
       switch (action.payload) {
         case MoveComponentEnum.down:
           if (idx === state.list.length - 1) {
-            state.selectedComponentId = '';
+            state.selectedComponentId = "";
           } else {
             state.selectedComponentId = state.list[idx + 1].id;
           }
@@ -125,6 +125,29 @@ const componentSlice = createSlice({
             state.selectedComponentId = state.list[idx - 1].id;
           }
           break;
+      }
+    },
+    swap(state, action: PayloadAction<{ type: MoveComponentEnum, index: number }>) {
+      if (!state.selectedComponentId) {
+        return
+      }
+      const { type, index } = action.payload
+      const componentProps = state.list[index];
+      switch (type) {
+        case MoveComponentEnum.up: // 上移
+          if (index === 0) {
+            return
+          }
+          state.list.splice(index, 1);
+          state.list.splice(index - 1, 0, { ...componentProps })
+          break
+        case MoveComponentEnum.down:
+          if (index === state.list.length - 1) {
+            return
+          }
+          state.list.splice(index, 1);
+          state.list.splice(index + 1, 0, { ...componentProps })
+          break
       }
     },
   },
@@ -145,12 +168,22 @@ const selectActiveComponent = (state: RootState) =>
   );
 
 /**
+ * @description 选择的高亮组件序号
+*/
+const selectActiveComponentIdx = (state: RootState) => state.component.list.findIndex(item => item.id === state.component.selectedComponentId)
+
+/**
  * @description 选择组件列表
 */
 const selectComponentList = (state: RootState) => state.component.list;
 
-export const { increment } = componentSlice.actions
+export const { increment, swap } = componentSlice.actions
 
-export { selectActiveComponentId, selectComponentList, selectActiveComponent };
+export {
+  selectActiveComponentId,
+  selectComponentList,
+  selectActiveComponent,
+  selectActiveComponentIdx,
+};
 
 export default componentSlice.reducer
