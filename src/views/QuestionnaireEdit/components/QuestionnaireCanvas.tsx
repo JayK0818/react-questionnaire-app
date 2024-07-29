@@ -9,38 +9,42 @@ import QuestionnaireCheckbox from './QuestionnaireCheckbox'
 import QuestionnaireRadio from './QuestionnaireRadio'
 import QuestionnaireDescription from './QuestionnaireDescription'
 import { ComponentTypeEnum } from "@/interface/enum";
-/* import type {
-  QuestionnaireTitleProps, QuestionnaireInputProps,
-  QuestionnaireTextareaProps, QuestionnaireParagraphProps
-} from '../interface/index' */
+import styles from '../index.module.scss'
+import type { ComponentListProps } from '../interface'
 
 const QuestionnaireCanvas: React.FC = () => {
   const componentList = useAppSelector(selectComponentList)
+  const getComponent = (componentProps: ComponentListProps) => {
+    const { props, type } = componentProps
+    switch (type) {
+      case ComponentTypeEnum.input:
+        return <QuestionnaireInput {...props} />
+      case ComponentTypeEnum.title:
+        return <QuestionnaireTitle {...props} />
+      case ComponentTypeEnum.textarea:
+        return <QuestionnaireTextArea {...props} />
+      case ComponentTypeEnum.paragraph:
+        return <QuestionnaireParagraph {...props} />
+      case ComponentTypeEnum.checkbox:
+        return <QuestionnaireCheckbox {...props} />
+      case ComponentTypeEnum.radio:
+        return <QuestionnaireRadio {...props} />
+      case ComponentTypeEnum.description:
+        return <QuestionnaireDescription {...props} />
+      default:
+        return null
+    }
+  }
   return (
-    <div>
+    <React.Fragment>
       {
-        componentList.map((c) => {
-          switch (c.type) {
-            case ComponentTypeEnum.input:
-              return <QuestionnaireInput {...c.props} key={ c.id }/>
-            case ComponentTypeEnum.title:
-              return <QuestionnaireTitle {...c.props} key={ c.id }/>
-            case ComponentTypeEnum.textarea:
-              return <QuestionnaireTextArea {...c.props} key={c.id}/>
-            case ComponentTypeEnum.paragraph:
-              return <QuestionnaireParagraph {...c.props} key={c.id}/>
-            case ComponentTypeEnum.checkbox:
-              return <QuestionnaireCheckbox key={c.id} {...c.props}/>
-            case ComponentTypeEnum.radio:
-              return <QuestionnaireRadio key={c.id} {...c.props}/>
-            case ComponentTypeEnum.description:
-              return <QuestionnaireDescription key={c.id} {...c.props} />
-            default:
-              return null
-          }
-        })
+        componentList.map(componentProps => (
+          <div className={styles['canvas-component-container']} key={componentProps.id}>
+            { getComponent(componentProps) }
+          </div>
+        ))
       }
-    </div>
+    </React.Fragment>
   )
 }
 

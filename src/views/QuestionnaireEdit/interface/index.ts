@@ -14,7 +14,7 @@ enum QuestionnaireEditTabEnum {
  * @description 问卷标题属性
 */
 interface QuestionnaireTitleProps {
-  text?: string;
+  title?: string;
   level?: 1 | 2 | 3 | 4 | 5;
   isCenter?: boolean;
   disabled?: boolean;
@@ -40,6 +40,7 @@ interface QuestionnaireTextareaProps {
  * @description 段落
 */
 interface QuestionnaireParagraphProps {
+  title?: string
   text?: string
   isCenter?: boolean
 }
@@ -54,7 +55,6 @@ interface QuestionnaireDescriptionProps {
   */
 interface ComponentListProps {
   id: string;
-  title: string;
   props: QuestionnaireComponentPropsType;
   type: ComponentTypeEnum;
   groupType: GroupTypeEnum;

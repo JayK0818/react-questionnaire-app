@@ -6,12 +6,12 @@ import React from 'react'
 import type { QuestionnaireInputProps } from '../interface/index'
 import { Typography, Input } from 'antd'
 
-const { Paragraph } = Typography
+const { Title } = Typography
 
 const defaultQuestionnaireInputProps: Required<QuestionnaireInputProps> = {
   title: '输入框标题',
   placeholder: '请输入文本...',
-  disabled: false
+  disabled: true
 }
 
 const QuestionnaireInput: React.FC<QuestionnaireInputProps> = (props) => {
@@ -20,10 +20,12 @@ const QuestionnaireInput: React.FC<QuestionnaireInputProps> = (props) => {
     <React.Fragment>
       { disabled && <div className={ styles['disabled-mask'] }></div> }
       <div>
-        <Paragraph>{ title }</Paragraph>
+        <Title
+          className={ styles['component-title'] }
+          level={5}
+        >{title}</Title>
         <Input
           placeholder={placeholder}
-          disabled={ disabled }
         />
       </div>
     </React.Fragment>

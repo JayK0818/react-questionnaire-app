@@ -2,8 +2,9 @@ import React from 'react'
 import type { QuestionnaireRadioProps } from '../interface/index'
 import { nanoid } from 'nanoid'
 import { Typography, Radio, Space } from 'antd'
+import styles from '../index.module.scss'
 
-const { Paragraph } = Typography
+const { Title } = Typography
 
 // 默认选项
 const defaultQuestionnaireRadioProps: Required<QuestionnaireRadioProps> = {
@@ -24,21 +25,24 @@ const defaultQuestionnaireRadioProps: Required<QuestionnaireRadioProps> = {
     }
   ],
   value: '',
-  disabled: false
+  disabled: true
 }
 
 const QuestionnaireRadio: React.FC<QuestionnaireRadioProps> = (props) => {
   const { title, options = [], isVertical, value, disabled } = { ...defaultQuestionnaireRadioProps, ...props }
   return (
     <div>
-      <Paragraph>{title}</Paragraph>
+      { disabled && <div className={ styles['disabled-mask'] }></div>  }
+      <Title
+        level={5}
+        className={ styles['component-title'] }
+      >{title}</Title>
       <Radio.Group value={ value }>
         <Space direction={ isVertical ? 'vertical' : 'horizontal' }>
           {options.map(option => (
             <Radio
               value={option.value}
               key={option.value}
-              disabled={ disabled }
             >{option.label}</Radio>
           )) }
         </Space>

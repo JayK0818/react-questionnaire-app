@@ -1,6 +1,7 @@
 import React from 'react'
 import type { QuestionnaireDescriptionProps } from '../interface/index'
 import { Typography } from 'antd'
+import styles from '../index.module.scss'
 
 const defaultQuestionnaireDescriptionProps: Required<QuestionnaireDescriptionProps> = {
   title: '这是一个段落',
@@ -15,7 +16,10 @@ const QuestionnaireDescription: React.FC<QuestionnaireDescriptionProps> = (props
   const descriptionList = description.split('\n').filter(Boolean)
   return (
     <div>
-      <Title level={5}>{title}</Title>
+      <Title
+        level={5}
+        className={ styles['component-title'] }
+      >{title}</Title>
       <Paragraph>
         {descriptionList.length > 0 && descriptionList.map((desc, i) => (
           <div key={i}>{ desc.trim() }</div>

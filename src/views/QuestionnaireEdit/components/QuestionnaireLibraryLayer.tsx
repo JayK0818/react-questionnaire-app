@@ -14,7 +14,6 @@ import { ComponentTypeEnum } from '@/interface/enum'
 import { useAppSelector, useAppDispatch } from '@/store/hooks'
 import { selectComponentList, increment } from '@/store/component'
 import { nanoid } from '@reduxjs/toolkit'
-import { componentTitleMap } from '@/config/index'
 
 const { Title } = Typography
 /**
@@ -44,11 +43,11 @@ const componentGroupList = [
     value: GroupTypeEnum.user_type,
     children: [
       {
-        element: <QuestionnaireInput disabled={ true } />,
+        element: <QuestionnaireInput/>,
         type: ComponentTypeEnum.input
       },
       {
-        element: <QuestionnaireTextArea disabled={ true }/>,
+        element: <QuestionnaireTextArea/>,
         type: ComponentTypeEnum.textarea
       }
     ]
@@ -58,11 +57,11 @@ const componentGroupList = [
     value: GroupTypeEnum.user_select,
     children: [
       {
-        element: <QuestionnaireRadio disabled={true}/>,
+        element: <QuestionnaireRadio/>,
         type: ComponentTypeEnum.radio
       },
       {
-        element: <QuestionnaireCheckbox disabled={true} />,
+        element: <QuestionnaireCheckbox/>,
         type: ComponentTypeEnum.checkbox
       }
     ]
@@ -84,24 +83,31 @@ const Library: React.FC = () => {
         props = { ...defaultQuestionnaireParagraphProps }
         break
       case ComponentTypeEnum.input:
-        props = { ...defaultQuestionnaireInputProps }
+        props = {
+          ...defaultQuestionnaireInputProps,
+        }
         break
       case ComponentTypeEnum.radio:
-        props = { ...defaultQuestionnaireRadioProps }
+        props = {
+          ...defaultQuestionnaireRadioProps,
+        }
         break
       case ComponentTypeEnum.checkbox:
-        props = { ...defaultQuestionnaireCheckboxProps }
+        props = {
+          ...defaultQuestionnaireCheckboxProps,
+        }
         break
       case ComponentTypeEnum.description:
         props = { ...defaultQuestionnaireDescriptionProps }
         break
       case ComponentTypeEnum.textarea:
-        props = { ...defaultQuestionnaireTextareaProps }
+        props = {
+          ...defaultQuestionnaireTextareaProps,
+        }
         break
     }
     dispatch(increment({
       id: nanoid(),
-      title: componentTitleMap[type],
       groupType,
       type,
       isLocked: false,
@@ -121,7 +127,7 @@ const Library: React.FC = () => {
               <div
                 key={i}
                 className={styles['component-container']}
-                onClick={ (e) => handleSelectComponent(child.type, group.value) }
+                onClick={ () => handleSelectComponent(child.type, group.value) }
               >
                 { child.element }
               </div>
@@ -147,7 +153,7 @@ const Layer: React.FC = () => {
             className={ styles['layer-item'] }
           >
             <div className={styles['flex-1']}>
-              {item.title}
+              { (item.props as any)?.title }
             </div>
             <div className={styles['icon-box']}>
               <span className={styles['icon']}>

@@ -4,15 +4,15 @@ import { Typography, Space, Checkbox } from 'antd'
 import { QuestionnaireCheckboxProps } from '../interface/index'
 import styles from '../index.module.scss'
 
-const { Paragraph } = Typography
+const { Title } = Typography
 
 /**
  * @description 默认值
 */
 const defaultQuestionnaireCheckboxProps: Required<QuestionnaireCheckboxProps> = {
-  title: '用户多选',
+  title: '多选标题',
   isVertical: false,
-  disabled: false,
+  disabled: true,
   options: [
     {
       label: '选项一',
@@ -38,7 +38,10 @@ const QuestionnaireCheckbox: React.FC<QuestionnaireCheckboxProps> = (props) => {
     <React.Fragment>
       { disabled && <div className={ styles['disabled-mask'] }></div> }
       <div>
-        <Paragraph>{title}</Paragraph>
+        <Title
+          level={ 5 }
+          className={ styles['component-title'] }
+        >{ title }</Title>
         <Space
           direction={ isVertical ? 'vertical' : 'horizontal' }
         >
@@ -47,7 +50,6 @@ const QuestionnaireCheckbox: React.FC<QuestionnaireCheckboxProps> = (props) => {
               checked={option.checked}
               value={option.value}
               key={option.value}
-              disabled={ disabled }
             >{ option.label }</Checkbox>
           )) }
         </Space>

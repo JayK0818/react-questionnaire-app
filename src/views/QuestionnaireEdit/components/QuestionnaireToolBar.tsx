@@ -3,7 +3,7 @@ import styles from '../index.module.scss'
 import { Button, Space, Tooltip } from 'antd'
 import {
   LeftOutlined, DeleteOutlined, EyeInvisibleOutlined, LockOutlined,
-  CopyOutlined, BlockOutlined, UpOutlined, DownOutlined
+  CopyOutlined, BlockOutlined, UpOutlined, DownOutlined, UndoOutlined
 } from '@ant-design/icons'
 import { useAppSelector, useAppDispatch } from '@/store/hooks'
 import {
@@ -93,6 +93,12 @@ const QuestionnaireToolBar: React.FC = () => {
               icon={<DownOutlined />}
               disabled={ isDisabled || (componentList.length - 1 <= selectedIdx) }
               onClick={ () => handleSwap(MoveComponentEnum.down) }
+            ></Button>
+          </Tooltip>
+          <Tooltip title='撤销'>
+            <Button
+              shape={'circle'}
+              icon={ <UndoOutlined/> }
             ></Button>
           </Tooltip>
         </Space>
