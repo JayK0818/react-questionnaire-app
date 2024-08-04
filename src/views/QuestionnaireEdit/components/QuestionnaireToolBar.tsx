@@ -8,7 +8,7 @@ import {
 import { useAppSelector, useAppDispatch } from '@/store/hooks'
 import {
   selectActiveComponent, selectActiveComponentId, selectActiveComponentIdx, selectComponentList,
-  swap
+  swap, deleteActiveComponent
 } from '@/store/component'
 import { MoveComponentEnum } from '../interface/index'
 
@@ -31,6 +31,12 @@ const QuestionnaireToolBar: React.FC = () => {
       index: selectedIdx
     }))
   }
+  /**
+   * @description 删除高亮组件
+  */
+  const handleDelete = (): void => {
+    dispatch(deleteActiveComponent())
+  }
   return (
     <div className={styles.header}>
       <div>
@@ -47,7 +53,8 @@ const QuestionnaireToolBar: React.FC = () => {
             <Button
               shape={'circle'} 
               icon={<DeleteOutlined />}
-              disabled={ isDisabled }
+              disabled={isDisabled || componentList.length <= 1 }
+              onClick={handleDelete}
             ></Button>
           </Tooltip>
           <Tooltip title='隐藏'>

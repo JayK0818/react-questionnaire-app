@@ -40,19 +40,18 @@ const componentSlice = createSlice({
     toggleActiveComponent(state, action: PayloadAction<string>) {
       state.selectedComponentId = action.payload
     },
-    delete(state) {
-      // 删除选中的组件
+    deleteActiveComponent(state) {
       const activeComponentId = getNextHighlightActiveComponent(
-        state.list,
+        state.list.slice(),
         state.selectedComponentId
       );
-      state.selectedComponentId = activeComponentId;
       const idx = state.list.findIndex(
         (item) => item.fe_id === state.selectedComponentId
       );
       if (idx >= 0) {
         state.list.splice(idx, 1);
       }
+      state.selectedComponentId = activeComponentId
     },
     toggleVisible(state, action: PayloadAction<string | undefined>) {
       // 切换隐藏/显示组件
@@ -183,7 +182,8 @@ const selectActiveComponentIdx = (state: RootState) =>
 */
 const selectComponentList = (state: RootState) => state.component.list;
 
-export const { increment, swap, toggleActiveComponent } = componentSlice.actions;
+export const { increment, swap, toggleActiveComponent, deleteActiveComponent } =
+  componentSlice.actions;
 
 export {
   selectActiveComponentId,
