@@ -54,7 +54,8 @@ interface QuestionnaireDescriptionProps {
    * @description 组件列表
   */
 interface ComponentListProps {
-  id: string;
+  fe_id: string
+  id?: number;
   props: QuestionnaireComponentPropsType;
   type: ComponentTypeEnum;
   groupType: GroupTypeEnum;

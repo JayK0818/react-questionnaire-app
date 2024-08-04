@@ -5,7 +5,7 @@ import type { ComponentListProps } from "@/views/QuestionnaireEdit/interface";
 */
 const getNextHighlightActiveComponent = (list: ComponentListProps[], id: string): string => {
   const visibleList = list.filter(item => item.isVisible)
-  const idx = visibleList.findIndex(item => item.id === id)
+  const idx = visibleList.findIndex((item) => item.fe_id === id);
   if (idx === -1) {
     return ''
   }
@@ -13,9 +13,9 @@ const getNextHighlightActiveComponent = (list: ComponentListProps[], id: string)
     return ''
   }
   if (idx === visibleList.length - 1) {
-    return visibleList[0].id
+    return visibleList[0].fe_id;
   }
-  return visibleList[idx + 1].id
+  return visibleList[idx + 1].fe_id;
 }
 
 export { getNextHighlightActiveComponent };

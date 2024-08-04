@@ -92,12 +92,17 @@
       }
     }
     .canvas-component-container {
-      margin: 3px 0;
+      margin: 5px 0;
       padding: 6px 8px;
       position: relative;
       border: 1px solid #fff;
+      cursor: pointer;
+      user-select: none;
       &:hover {
         border-color: #e8e8e8;
+      }
+      &.active {
+        border-color: $primary-color;
       }
     }
     .component-title {

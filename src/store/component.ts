@@ -28,14 +28,17 @@ const componentSlice = createSlice({
       action: PayloadAction<ComponentListProps>
     ) {
       const idx = state.list.findIndex(
-        (item) => item.id === state.selectedComponentId
+        (item) => item.fe_id === state.selectedComponentId
       );
       if (idx === -1) {
         state.list.push(action.payload);
       } else {
         state.list.splice(idx + 1, 0, action.payload);
       }
-      state.selectedComponentId = action.payload.id;
+      state.selectedComponentId = action.payload.fe_id;
+    },
+    toggleActiveComponent(state, action: PayloadAction<string>) {
+      state.selectedComponentId = action.payload
     },
     delete(state) {
       // 删除选中的组件
@@ -45,7 +48,7 @@ const componentSlice = createSlice({
       );
       state.selectedComponentId = activeComponentId;
       const idx = state.list.findIndex(
-        (item) => item.id === state.selectedComponentId
+        (item) => item.fe_id === state.selectedComponentId
       );
       if (idx >= 0) {
         state.list.splice(idx, 1);
@@ -71,7 +74,7 @@ const componentSlice = createSlice({
     },
     toggleLock(state, action: PayloadAction<string>) {
       const targetComponent = state.list.find(
-        (item) => item.id === action.payload
+        (item) => item.fe_id === action.payload
       );
       if (targetComponent) {
         targetComponent.isLocked = !targetComponent.isLocked;
@@ -80,7 +83,7 @@ const componentSlice = createSlice({
     copy(state, action: PayloadAction<string>) {
       // 复制组件
       const targetComponent = state.list.find(
-        (item) => item.id === action.payload
+        (item) => item.fe_id === action.payload
       );
       if (targetComponent) {
         state.copiedComponent = targetComponent;
@@ -90,7 +93,7 @@ const componentSlice = createSlice({
       // 黏贴
       if (state.copiedComponent) {
         const idx = state.list.findIndex(
-          (item) => item.id === state.selectedComponentId
+          (item) => item.fe_id === state.selectedComponentId
         );
         if (idx === -1) {
           state.list.push(state.copiedComponent);
@@ -105,7 +108,7 @@ const componentSlice = createSlice({
         return;
       }
       const idx = state.list.findIndex(
-        (item) => item.id === state.selectedComponentId
+        (item) => item.fe_id === state.selectedComponentId
       );
       if (idx === -1) {
         return;
@@ -115,14 +118,14 @@ const componentSlice = createSlice({
           if (idx === state.list.length - 1) {
             state.selectedComponentId = "";
           } else {
-            state.selectedComponentId = state.list[idx + 1].id;
+            state.selectedComponentId = state.list[idx + 1].fe_id;
           }
           break;
         case MoveComponentEnum.up:
           if (idx === 0) {
-            state.selectedComponentId = state.list[state.list.length - 1].id;
+            state.selectedComponentId = state.list[state.list.length - 1].fe_id;
           } else {
-            state.selectedComponentId = state.list[idx - 1].id;
+            state.selectedComponentId = state.list[idx - 1].fe_id;
           }
           break;
       }
@@ -164,20 +167,23 @@ const selectActiveComponentId = (state: RootState) =>
 */
 const selectActiveComponent = (state: RootState) =>
   state.component.list.find(
-    (item) => item.id === state.component.selectedComponentId
+    (item) => item.fe_id === state.component.selectedComponentId
   );
 
 /**
  * @description 选择的高亮组件序号
 */
-const selectActiveComponentIdx = (state: RootState) => state.component.list.findIndex(item => item.id === state.component.selectedComponentId)
+const selectActiveComponentIdx = (state: RootState) =>
+  state.component.list.findIndex(
+    (item) => item.fe_id === state.component.selectedComponentId
+  );
 
 /**
  * @description 选择组件列表
 */
 const selectComponentList = (state: RootState) => state.component.list;
 
-export const { increment, swap } = componentSlice.actions
+export const { increment, swap, toggleActiveComponent } = componentSlice.actions;
 
 export {
   selectActiveComponentId,

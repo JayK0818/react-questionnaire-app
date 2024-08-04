@@ -1,6 +1,6 @@
 import React from 'react'
-import { selectComponentList } from '@/store/component'
-import { useAppSelector } from '@/store/hooks'
+import { selectComponentList, selectActiveComponentId, toggleActiveComponent } from '@/store/component'
+import { useAppSelector, useAppDispatch } from '@/store/hooks'
 import QuestionnaireInput from './QuestionnaireInput'
 import QuestionnaireTitle from './QuestionnaireTtile'
 import QuestionnaireTextArea from './QuestionnaireTextarea'
@@ -11,9 +11,18 @@ import QuestionnaireDescription from './QuestionnaireDescription'
 import { ComponentTypeEnum } from "@/interface/enum";
 import styles from '../index.module.scss'
 import type { ComponentListProps } from '../interface'
+import classname from 'classnames'
 
+/**
+ * @description 组件画板
+*/
 const QuestionnaireCanvas: React.FC = () => {
   const componentList = useAppSelector(selectComponentList)
+  const activeComponentId = useAppSelector(selectActiveComponentId)
+  const dispatch = useAppDispatch()
+  /**
+   * @description 获取当前画布的所有组件
+  */
   const getComponent = (componentProps: ComponentListProps) => {
     const { props, type } = componentProps
     switch (type) {
@@ -35,11 +44,26 @@ const QuestionnaireCanvas: React.FC = () => {
         return null
     }
   }
+  /**
+   * @description 切换高亮组件
+  */
+  const handleToggleActiveComponent = (id: string): void => {
+    dispatch(toggleActiveComponent(id))
+  }
   return (
     <React.Fragment>
       {
         componentList.map(componentProps => (
-          <div className={styles['canvas-component-container']} key={componentProps.id}>
+          <div
+            className={
+              classname([
+                styles['canvas-component-container'],
+                activeComponentId === componentProps.fe_id ? styles['active'] : ''
+              ])
+            }
+            key={componentProps.fe_id}
+            onClick={() => handleToggleActiveComponent(componentProps.fe_id)}
+          >
             { getComponent(componentProps) }
           </div>
         ))

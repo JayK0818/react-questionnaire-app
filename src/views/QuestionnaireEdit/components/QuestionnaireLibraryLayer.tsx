@@ -107,7 +107,7 @@ const Library: React.FC = () => {
         break
     }
     dispatch(increment({
-      id: nanoid(),
+      fe_id: nanoid(),
       groupType,
       type,
       isLocked: false,
