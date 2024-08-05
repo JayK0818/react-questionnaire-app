@@ -8,7 +8,7 @@ import {
 import { useAppSelector, useAppDispatch } from '@/store/hooks'
 import {
   selectActiveComponent, selectActiveComponentId, selectActiveComponentIdx, selectComponentList,
-  swap, deleteActiveComponent
+  swap, deleteActiveComponent, toggleLocked, toggleVisible
 } from '@/store/component'
 import { MoveComponentEnum } from '../interface/index'
 
@@ -37,6 +37,18 @@ const QuestionnaireToolBar: React.FC = () => {
   const handleDelete = (): void => {
     dispatch(deleteActiveComponent())
   }
+  /**
+   * @description 设置组件锁定
+  */
+  const handleSetComponentLocked = (): void => {
+    dispatch(toggleLocked(selectedId))
+  }
+  /**
+   * @description 设置组件隐藏
+  */
+  const handleToggleVisible = (): void => {
+    dispatch(toggleVisible())
+  }
   return (
     <div className={styles.header}>
       <div>
@@ -61,7 +73,8 @@ const QuestionnaireToolBar: React.FC = () => {
             <Button
               shape={'circle'}
               icon={<EyeInvisibleOutlined />}
-              disabled={ isDisabled }
+              disabled={isDisabled || componentList.length <= 1}
+              onClick={ handleToggleVisible }
             ></Button>
           </Tooltip>
           <Tooltip title='锁定'>
@@ -69,7 +82,8 @@ const QuestionnaireToolBar: React.FC = () => {
               shape={'circle'}
               icon={<LockOutlined />}
               disabled={ isDisabled }
-              type={ activeComponent && activeComponent.isLocked ? 'primary' : 'default' }
+              type={activeComponent && activeComponent.isLocked ? 'primary' : 'default'}
+              onClick={ handleSetComponentLocked }
             ></Button>
           </Tooltip>
           <Tooltip title='复制'>

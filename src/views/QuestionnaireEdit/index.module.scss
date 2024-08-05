@@ -51,8 +51,16 @@
         background-color: #fff;
         user-select: none;
         border-bottom: 1px solid #e8e8e8;
+        &:hover {
+          background-color: rgb(252, 252, 252);
+        }
         &.disabled {
-          background-color: rgba(0, 0, 0, .05);
+          background-color: rgb(252, 252, 252);
+        }
+        &.active {
+          .flex-1 {
+            color: $primary-color;
+          }
         }
         .flex-1 {
           flex: 1;
@@ -60,9 +68,11 @@
         }
         .icon {
           padding: 0 5px;
+          font-size: 14px;
           cursor: pointer;
-          &.disabled {
-            color: rgba(0, 0, 0, .45);
+          transition: all .3s;
+          &:hover {
+            color: $primary-hover-color;
           }
         }
       }
@@ -103,6 +113,16 @@
       }
       &.active {
         border-color: $primary-color;
+      }
+      &.locked {
+        background-color: rgb(250, 250, 250);
+        border-color: #e8e8e8;
+        &:hover {
+          border-color: #e8e8e8;
+        }
+        &.active {
+          border-color: $primary-active-color;
+        }
       }
     }
     .component-title {

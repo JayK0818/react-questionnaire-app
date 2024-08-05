@@ -54,24 +54,31 @@ const componentSlice = createSlice({
       state.selectedComponentId = activeComponentId
     },
     toggleVisible(state, action: PayloadAction<string | undefined>) {
+      const fe_id = action.payload || state.selectedComponentId
+      const target = state.list.find(item => item.fe_id === fe_id)
+      if (!target) {
+        return
+      }
       // 切换隐藏/显示组件
-      const activeId = action.payload ?? state.selectedComponentId;
-      const targetComponent = state.list.find(
-        (item) => item.id === action.payload
-      );
-      if (targetComponent) {
-        if (targetComponent.isVisible) {
+      if (action.payload) {
+        // 图层切换显示组件
+        if (target.isVisible) {
           state.selectedComponentId = getNextHighlightActiveComponent(
             state.list,
-            activeId
-          );
+            fe_id
+          )
         } else {
-          state.selectedComponentId = action.payload as string;
+          state.selectedComponentId = fe_id;
         }
-        targetComponent.isVisible = !targetComponent.isVisible;
+      } else {
+        state.selectedComponentId = getNextHighlightActiveComponent(
+          state.list,
+          fe_id
+        )
       }
+      target.isVisible = !target.isVisible;
     },
-    toggleLock(state, action: PayloadAction<string>) {
+    toggleLocked(state, action: PayloadAction<string>) {
       const targetComponent = state.list.find(
         (item) => item.fe_id === action.payload
       );
@@ -182,8 +189,14 @@ const selectActiveComponentIdx = (state: RootState) =>
 */
 const selectComponentList = (state: RootState) => state.component.list;
 
-export const { increment, swap, toggleActiveComponent, deleteActiveComponent } =
-  componentSlice.actions;
+export const {
+  increment,
+  swap,
+  toggleActiveComponent,
+  deleteActiveComponent,
+  toggleLocked,
+  toggleVisible,
+} = componentSlice.actions;
 
 export {
   selectActiveComponentId,

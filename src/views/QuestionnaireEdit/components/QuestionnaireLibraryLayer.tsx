@@ -1,7 +1,10 @@
 import React from 'react'
-import { Tabs, Typography, Empty } from 'antd'
+import { Tabs, Typography, Empty, Button } from 'antd'
 import { QuestionnaireEditTabEnum, GroupTypeEnum } from '../interface/index'
-import { UnorderedListOutlined, AppstoreOutlined, LockOutlined, EyeInvisibleOutlined } from '@ant-design/icons'
+import {
+  UnorderedListOutlined, AppstoreOutlined, LockOutlined, EyeInvisibleOutlined, EyeOutlined,
+  UnlockOutlined
+} from '@ant-design/icons'
 import styles from '../index.module.scss'
 import QuestionnaireTitle, { defaultQuestionnaireTitleProps } from './QuestionnaireTtile'
 import QuestionnaireParagraph, { defaultQuestionnaireParagraphProps } from './QuestionnaireParagraph'
@@ -12,8 +15,9 @@ import QuestionnaireRadio, { defaultQuestionnaireRadioProps } from './Questionna
 import QuestionnaireCheckbox, { defaultQuestionnaireCheckboxProps } from './QuestionnaireCheckbox'
 import { ComponentTypeEnum } from '@/interface/enum'
 import { useAppSelector, useAppDispatch } from '@/store/hooks'
-import { selectComponentList, increment } from '@/store/component'
+import { selectComponentList, increment, toggleVisible, toggleLocked, selectActiveComponentId } from '@/store/component'
 import { nanoid } from '@reduxjs/toolkit'
+import classname from 'classnames'
 
 const { Title } = Typography
 /**
@@ -144,23 +148,61 @@ const Library: React.FC = () => {
 */
 const Layer: React.FC = () => {
   const componentList = useAppSelector(selectComponentList)
+  const activeId = useAppSelector(selectActiveComponentId)
+  const dispatch = useAppDispatch()
+  /**
+   * @description 切换显示组件
+  */
+  const handleToggleVisible = (id: string): void => {
+    dispatch(toggleVisible(id))
+  }
+  /**
+   * @description 切换组件锁定
+  */
+  const handleToggleLocked = (id: string): void => {
+    dispatch(toggleLocked(id))
+  }
   return (<div>
     {componentList.length > 0
       ? (
         componentList.map(item => (
           <div
-            key={item.id}
-            className={ styles['layer-item'] }
+            key={ item.fe_id }
+            className={classname([
+              styles['layer-item'],
+              item.isLocked ? styles['disabled'] : '',
+              item.fe_id === activeId ? styles['active'] : ''
+            ])}
           >
             <div className={styles['flex-1']}>
               { (item.props as any)?.title }
             </div>
             <div className={styles['icon-box']}>
-              <span className={styles['icon']}>
-                <EyeInvisibleOutlined/>
+              <span
+                className={styles['icon']}
+                onClick={() => handleToggleVisible(item.fe_id)}
+              >
+                <Button
+                  shape={'circle'}
+                  size={'small'}
+                  type={item.isVisible ? 'primary' : 'default'}
+                >
+                  {
+                    item.isVisible ? <EyeOutlined/> : <EyeInvisibleOutlined/>
+                  }
+                </Button>
               </span>
-              <span className={styles['icon']}>
-                <LockOutlined/>
+              <span
+                className={styles['icon']}
+                onClick={() => handleToggleLocked(item.fe_id)}
+              >
+                <Button
+                  shape={'circle'}
+                  type={item.isLocked ? 'primary' : 'default'}
+                  size={'small'}
+                >
+                  { item.isLocked ? <LockOutlined/> : <UnlockOutlined/> }
+                </Button>
               </span>
             </div>
           </div>

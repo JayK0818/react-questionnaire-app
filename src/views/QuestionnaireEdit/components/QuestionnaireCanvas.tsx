@@ -1,4 +1,5 @@
 import React from 'react'
+import { Empty } from 'antd'
 import { selectComponentList, selectActiveComponentId, toggleActiveComponent } from '@/store/component'
 import { useAppSelector, useAppDispatch } from '@/store/hooks'
 import QuestionnaireInput from './QuestionnaireInput'
@@ -18,6 +19,7 @@ import classname from 'classnames'
 */
 const QuestionnaireCanvas: React.FC = () => {
   const componentList = useAppSelector(selectComponentList)
+  const visibleComponentList = componentList.filter(item => item.isVisible)
   const activeComponentId = useAppSelector(selectActiveComponentId)
   const dispatch = useAppDispatch()
   /**
@@ -53,20 +55,32 @@ const QuestionnaireCanvas: React.FC = () => {
   return (
     <React.Fragment>
       {
-        componentList.map(componentProps => (
-          <div
-            className={
-              classname([
-                styles['canvas-component-container'],
-                activeComponentId === componentProps.fe_id ? styles['active'] : ''
-              ])
-            }
-            key={componentProps.fe_id}
-            onClick={() => handleToggleActiveComponent(componentProps.fe_id)}
-          >
-            { getComponent(componentProps) }
-          </div>
-        ))
+        componentList.length === 0
+          ? <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              description={'暂无数据, 请在组件库中添加'}
+            />
+          : (
+            visibleComponentList.length > 0
+            ? visibleComponentList.map(componentProps => (
+                <div
+                  className={
+                    classname([
+                      styles['canvas-component-container'],
+                      activeComponentId === componentProps.fe_id ? styles['active'] : '',
+                      componentProps.isLocked ? styles['locked'] : ''
+                    ])
+                  }
+                  key={componentProps.fe_id}
+                  onClick={ () => handleToggleActiveComponent(componentProps.fe_id) }
+                >
+                  { getComponent(componentProps) }
+                </div>
+              ))
+              : <Empty
+                image={Empty.PRESENTED_IMAGE_SIMPLE}
+                />
+          )
       }
     </React.Fragment>
   )
