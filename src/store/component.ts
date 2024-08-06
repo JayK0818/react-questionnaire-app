@@ -95,18 +95,24 @@ const componentSlice = createSlice({
         state.copiedComponent = targetComponent;
       }
     },
-    paste(state) {
+    paste(state, action: PayloadAction<string>) {
       // 黏贴
       if (state.copiedComponent) {
         const idx = state.list.findIndex(
           (item) => item.fe_id === state.selectedComponentId
         );
-        if (idx === -1) {
-          state.list.push(state.copiedComponent);
-        } else {
-          state.list.splice(idx + 1, 0, state.copiedComponent);
+        const componentProps = {
+          ...state.copiedComponent,
+          fe_id: action.payload
         }
+        if (idx === -1) {
+          state.list.push(componentProps);
+        } else {
+          state.list.splice(idx + 1, 0, componentProps);
+        }
+        state.selectedComponentId = action.payload;
       }
+      state.copiedComponent = null
     },
     // 移动高亮组件 上-下操作
     move(state, action: PayloadAction<MoveComponentEnum>) {
@@ -196,6 +202,8 @@ export const {
   deleteActiveComponent,
   toggleLocked,
   toggleVisible,
+  copy,
+  paste
 } = componentSlice.actions;
 
 export {

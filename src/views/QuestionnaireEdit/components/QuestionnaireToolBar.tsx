@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from '../index.module.scss'
-import { Button, Space, Tooltip } from 'antd'
+import { Button, message, Space, Tooltip } from 'antd'
 import {
   LeftOutlined, DeleteOutlined, EyeInvisibleOutlined, LockOutlined,
   CopyOutlined, BlockOutlined, UpOutlined, DownOutlined, UndoOutlined
@@ -8,15 +8,17 @@ import {
 import { useAppSelector, useAppDispatch } from '@/store/hooks'
 import {
   selectActiveComponent, selectActiveComponentId, selectActiveComponentIdx, selectComponentList,
-  swap, deleteActiveComponent, toggleLocked, toggleVisible
+  swap, deleteActiveComponent, toggleLocked, toggleVisible, copy, paste
 } from '@/store/component'
 import { MoveComponentEnum } from '../interface/index'
+import { nanoid } from 'nanoid'
 
 const QuestionnaireToolBar: React.FC = () => {
   const activeComponent = useAppSelector(selectActiveComponent)
   const selectedId = useAppSelector(selectActiveComponentId)
   const selectedIdx = useAppSelector(selectActiveComponentIdx)
   const componentList = useAppSelector(selectComponentList)
+  const hasCopied = useAppSelector(state => state.component.copiedComponent)
   const isDisabled = selectedId === ''
   // dispatch
   const dispatch = useAppDispatch()
@@ -48,6 +50,19 @@ const QuestionnaireToolBar: React.FC = () => {
   */
   const handleToggleVisible = (): void => {
     dispatch(toggleVisible())
+  }
+  /**
+   * @description 组件复制
+  */
+  const handleCopy = (): void => {
+    dispatch(copy(selectedId))
+    message.success('copy success')
+  }
+  /**
+   * @description 组件黏贴
+  */
+  const handlePaste = (): void => {
+    dispatch(paste(nanoid()))
   }
   return (
     <div className={styles.header}>
@@ -91,13 +106,15 @@ const QuestionnaireToolBar: React.FC = () => {
               shape={'circle'}
               icon={<CopyOutlined />}
               disabled={isDisabled}
+              onClick={ handleCopy }
             ></Button>
           </Tooltip>
           <Tooltip title='黏贴'>
             <Button
               shape={'circle'}
               icon={<BlockOutlined />}
-              disabled={ isDisabled }
+              disabled={isDisabled || (!hasCopied)}
+              onClick={ handlePaste }
             ></Button>
           </Tooltip>
           <Tooltip title='上移'>

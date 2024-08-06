@@ -185,7 +185,7 @@ const Layer: React.FC = () => {
                 <Button
                   shape={'circle'}
                   size={'small'}
-                  type={item.isVisible ? 'primary' : 'default'}
+                  type={item.isVisible ? 'default' : 'primary'}
                 >
                   {
                     item.isVisible ? <EyeOutlined/> : <EyeInvisibleOutlined/>
