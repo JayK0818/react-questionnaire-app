@@ -1,11 +1,37 @@
 import React from 'react'
 import { QuestionnaireEditTabEnum } from '../interface/index'
-import { Tabs } from 'antd'
+import { Tabs, Empty, Form } from 'antd'
 import { FileTextOutlined, SettingOutlined } from '@ant-design/icons'
+import CheckboxForm from './CheckboxForm'
+import RadioForm from './RadioForm'
+import { useAppSelector, useAppDispatch } from '@/store/hooks'
+import { selectActiveComponent } from '@/store/component'
+import { ComponentTypeEnum } from '@/interface/enum'
 
 const QuestionnaireAttr: React.FC = () => {
+  // const dispatch = useAppDispatch()
+  const componentProps = useAppSelector(selectActiveComponent)
+  const getForm = () => {
+    if (!componentProps) {
+      return null
+    }
+    switch (componentProps.type) {
+      case ComponentTypeEnum.checkbox:
+        return <CheckboxForm fe_id={componentProps.fe_id} />
+      case ComponentTypeEnum.radio:
+        return <RadioForm fe_id={ componentProps.fe_id } />
+    }
+  }
   return (
-    <div>页面属性</div>
+    <div>
+      {
+        componentProps
+          ? (<React.Fragment>
+              { getForm() }
+            </React.Fragment>)
+          : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+      }
+    </div>
   )
 }
 
@@ -15,6 +41,9 @@ const QuestionnaireSetting: React.FC = () => {
   )
 }
 
+/**
+ * @description 组件的属性和设置
+*/
 const QuestionnaireAttrSetting: React.FC = () => {
   return (
     <Tabs

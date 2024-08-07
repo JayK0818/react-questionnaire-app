@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { ComponentListProps } from '@/views/QuestionnaireEdit/interface'
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from './index'
+import { createSelector } from 'reselect'
 import { getNextHighlightActiveComponent } from './utils/index'
 import { MoveComponentEnum } from '@/views/QuestionnaireEdit/interface/index'
 
@@ -195,6 +196,19 @@ const selectActiveComponentIdx = (state: RootState) =>
 */
 const selectComponentList = (state: RootState) => state.component.list;
 
+/**
+ * @description 根据fe_id选择组件props
+*/
+const selectComponentById = createSelector(
+  [
+    (state: RootState) => state.component.list,
+    (state, fe_id: string) => fe_id
+  ],
+  (list, fe_id: string) => {
+    return list.find((item) => item.fe_id === fe_id)!.props;
+  }
+)
+
 export const {
   increment,
   swap,
@@ -211,6 +225,7 @@ export {
   selectComponentList,
   selectActiveComponent,
   selectActiveComponentIdx,
+  selectComponentById,
 };
 
 export default componentSlice.reducer
