@@ -41,7 +41,7 @@ const QuestionnaireCheckbox: React.FC<QuestionnaireCheckboxProps> = (props) => {
         <Title
           level={ 5 }
           className={ styles['component-title'] }
-        >{ title }</Title>
+        >{ title || '请输入一个标题' }</Title>
         <Space
           direction={ isVertical ? 'vertical' : 'horizontal' }
         >

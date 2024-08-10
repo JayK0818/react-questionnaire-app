@@ -13,6 +13,7 @@ import { ComponentTypeEnum } from "@/interface/enum";
 import styles from '../index.module.scss'
 import type { ComponentListProps } from '../interface'
 import classname from 'classnames'
+import { QuestionnaireCheckboxProps } from '../interface/index'
 
 /**
  * @description 组件画板
@@ -37,7 +38,7 @@ const QuestionnaireCanvas: React.FC = () => {
       case ComponentTypeEnum.paragraph:
         return <QuestionnaireParagraph {...props} />
       case ComponentTypeEnum.checkbox:
-        return <QuestionnaireCheckbox {...props} />
+        return <QuestionnaireCheckbox {...props as QuestionnaireCheckboxProps} />
       case ComponentTypeEnum.radio:
         return <QuestionnaireRadio {...props} />
       case ComponentTypeEnum.description:

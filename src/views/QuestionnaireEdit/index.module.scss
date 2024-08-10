@@ -76,6 +76,14 @@
           }
         }
       }
+      .checkbox-item {
+        display: flex;
+        padding: 5px 0;
+        .input {
+          margin-left: 12px;
+          width: 240px;
+        }
+      }
     }
     .component-container {
       position: relative;
@@ -103,7 +111,7 @@
     }
     .canvas-component-container {
       margin: 5px 0;
-      padding: 6px 8px;
+      padding: 10px 8px;
       position: relative;
       border: 1px solid #fff;
       cursor: pointer;
@@ -127,6 +135,7 @@
     }
     .component-title {
       font-size: 14px;
+      padding-bottom: 5px;
     }
   }
   .tool-container {

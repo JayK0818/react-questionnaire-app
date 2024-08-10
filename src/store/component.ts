@@ -166,6 +166,15 @@ const componentSlice = createSlice({
           break
       }
     },
+    updateProps(state, action: PayloadAction<{ fe_id: string, props: any }>): void {
+      const target = state.list.find(item => item.fe_id === action.payload.fe_id)
+      if (target) {
+        target.props = {
+          ...target.props,
+          ...action.payload.props
+        }
+      }
+    }
   },
 });
 
@@ -178,18 +187,18 @@ const selectActiveComponentId = (state: RootState) =>
 /**
  * @description 选择高亮的组件
 */
-const selectActiveComponent = (state: RootState) =>
-  state.component.list.find(
-    (item) => item.fe_id === state.component.selectedComponentId
-  );
+const selectActiveComponent = createSelector(
+  [(state: RootState) => state.component.list, (state: RootState) => state.component.selectedComponentId],
+  (state, fe_id) => state.find(item => item.fe_id === fe_id)
+)
 
 /**
  * @description 选择的高亮组件序号
 */
-const selectActiveComponentIdx = (state: RootState) =>
-  state.component.list.findIndex(
-    (item) => item.fe_id === state.component.selectedComponentId
-  );
+const selectActiveComponentIdx = createSelector(
+  [(state: RootState) => state.component.list, (state: RootState) => state.component.selectedComponentId],
+  (state, fe_id) => state.findIndex(item => item.fe_id === fe_id)
+)
 
 /**
  * @description 选择组件列表
@@ -217,7 +226,8 @@ export const {
   toggleLocked,
   toggleVisible,
   copy,
-  paste
+  paste,
+  updateProps,
 } = componentSlice.actions;
 
 export {

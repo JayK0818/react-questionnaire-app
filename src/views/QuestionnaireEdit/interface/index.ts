@@ -87,8 +87,8 @@ interface QuestionnaireCheckboxProps {
   options?: Array<{
     label: string;
     value: string;
-    checked?: boolean;
-  }>;
+    checked: boolean;
+  }>
 }
 
 /**
