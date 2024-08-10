@@ -50,7 +50,7 @@ const QuestionnaireCheckbox: React.FC<QuestionnaireCheckboxProps> = (props) => {
               checked={option.checked}
               value={option.value}
               key={option.value}
-            >{ option.label }</Checkbox>
+            >{ option.label || '请输入一个选项' }</Checkbox>
           )) }
         </Space>
       </div>
